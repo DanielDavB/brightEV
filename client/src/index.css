@@ -231,10 +231,10 @@ button:focus-visible, a:focus-visible { outline: 2px solid #d9ad58; outline-offs
 /* Editorial chapter balance: images occupy the open left rail beside the copy */
 @media (min-width:901px) {
   .story-chapter { position:relative; }
-  .story-chapter-content > img { position:absolute; left:-70%; top:3.5rem; width:min(55%,330px); height:clamp(170px,19vw,230px); margin:0; clip-path:inset(0 0 0 16% round 0 0 0 58px); }
+  .story-chapter-content > img { position:absolute; left:-92%; top:1.5rem; width:min(72%,460px); height:clamp(230px,24vw,330px); margin:0; clip-path:inset(0 0 0 12% round 0 0 0 72px); }
   .story-chapter-content > div { position:relative; z-index:1; }
 }
 @media (max-width:900px) {
   .story-chapter-content { display:block; }
-  .story-chapter-content > img { position:static; width:86%; margin:0 0 1.6rem; }
+  .story-chapter-content > img { position:static; width:100%; height:clamp(210px,55vw,300px); margin:0 0 1.6rem; }
 }
