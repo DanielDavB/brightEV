@@ -1,0 +1,75 @@
+/* BrightEV — motion system. Sober, automotive: fades, rises, sweeps. No bounce. */
+
+@keyframes bev-rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes bev-fade{from{opacity:0}to{opacity:1}}
+@keyframes bev-zoom{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
+@keyframes bev-wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes bev-pulse-ring{0%{box-shadow:0 0 0 0 rgba(200,146,43,.55)}70%{box-shadow:0 0 0 22px rgba(200,146,43,0)}100%{box-shadow:0 0 0 0 rgba(200,146,43,0)}}
+@keyframes bev-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes bev-dot{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* Scroll reveal — elements start hidden, .is-in is added by the observer */
+.bev-reveal{opacity:0;transform:translateY(28px);transition:opacity 620ms var(--ease-out-expo),transform 620ms var(--ease-out-expo)}
+.bev-reveal.is-in{opacity:1;transform:none}
+.bev-reveal-zoom{opacity:0;transform:scale(1.05);transition:opacity 700ms var(--ease-out-expo),transform 900ms var(--ease-out-expo)}
+.bev-reveal-zoom.is-in{opacity:1;transform:none}
+.bev-stagger>*{opacity:0;transform:translateY(22px);transition:opacity 560ms var(--ease-out-expo),transform 560ms var(--ease-out-expo)}
+.bev-stagger.is-in>*{opacity:1;transform:none}
+.bev-stagger.is-in>*:nth-child(1){transition-delay:0ms}
+.bev-stagger.is-in>*:nth-child(2){transition-delay:90ms}
+.bev-stagger.is-in>*:nth-child(3){transition-delay:180ms}
+.bev-stagger.is-in>*:nth-child(4){transition-delay:270ms}
+.bev-stagger.is-in>*:nth-child(5){transition-delay:360ms}
+.bev-stagger.is-in>*:nth-child(6){transition-delay:450ms}
+
+/* Hero entrance — plays on load, no observer */
+.bev-hero-in>*{animation:bev-rise 760ms var(--ease-out-expo) both}
+.bev-hero-in>*:nth-child(1){animation-delay:80ms}
+.bev-hero-in>*:nth-child(2){animation-delay:200ms}
+.bev-hero-in>*:nth-child(3){animation-delay:320ms}
+.bev-hero-in>*:nth-child(4){animation-delay:440ms}
+.bev-hero-in>*:nth-child(5){animation-delay:560ms}
+
+/* Modern nav link — tracked caps with a gold rule that sweeps in from the left */
+.bev-nav-link{position:relative;display:inline-block;padding:6px 0;font-family:var(--font-body);font-weight:600;font-size:11px;line-height:14px;letter-spacing:2.2px;text-transform:uppercase;color:var(--bev-sand);text-decoration:none;transition:color var(--dur-ui) var(--ease-out-expo)}
+.bev-nav-link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--bev-gold-light);transform:scaleX(0);transform-origin:left center;transition:transform var(--dur-ui) var(--ease-out-expo)}
+.bev-nav-link:hover{color:var(--bev-white)}
+.bev-nav-link:hover::after{transform:scaleX(1)}
+.bev-nav-link.is-active{color:var(--bev-gold-light)}
+.bev-nav-link.is-active::after{transform:scaleX(1)}
+.bev-nav-index{margin-right:7px;font-size:9px;letter-spacing:1px;color:var(--bev-gold);opacity:.75;font-variant-numeric:tabular-nums}
+
+/* Header condense on scroll */
+.bev-header{transition:height var(--dur-ui) var(--ease-out-expo),background var(--dur-ui) var(--ease-out-expo),box-shadow var(--dur-ui) var(--ease-out-expo)}
+.bev-header.is-condensed{height:58px;background:rgba(14,14,14,.82)}
+
+/* Gold CTA fill-sweep */
+.bev-sweep{position:relative;overflow:hidden;isolation:isolate}
+.bev-sweep::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,var(--bev-gold-light),var(--bev-gold-pale));transform:translateX(-101%);transition:transform 420ms var(--ease-out-expo)}
+.bev-sweep:hover::before{transform:translateX(0)}
+
+/* Card lift + image zoom */
+.bev-lift{transition:transform 420ms var(--ease-out-expo),box-shadow 420ms var(--ease-out-expo)}
+.bev-lift:hover{transform:translateY(-6px);box-shadow:var(--shadow-card-lg)}
+.bev-zoom-media{overflow:hidden}
+.bev-zoom-media img{transition:transform 900ms var(--ease-out-expo)}
+.bev-zoom-media:hover img{transform:scale(1.06)}
+
+/* Photo tile caption rise */
+.bev-tile-cap{transition:transform 420ms var(--ease-out-expo)}
+.bev-tile:hover .bev-tile-cap{transform:translateY(-4px)}
+
+/* Live dot + play pulse */
+.bev-dot-live{animation:bev-dot 2.2s ease-in-out infinite}
+.bev-pulse{animation:bev-pulse-ring 2.4s var(--ease-out-expo) infinite}
+
+/* Ticker */
+.bev-ticker{overflow:hidden;white-space:nowrap}
+.bev-ticker-track{display:inline-flex;animation:bev-marquee 38s linear infinite}
+.bev-ticker:hover .bev-ticker-track{animation-play-state:paused}
+
+@media (prefers-reduced-motion:reduce){
+  .bev-reveal,.bev-reveal-zoom,.bev-stagger>*{opacity:1!important;transform:none!important;transition:none!important}
+  .bev-hero-in>*{animation:none!important}
+  .bev-ticker-track,.bev-dot-live,.bev-pulse{animation:none!important}
+}

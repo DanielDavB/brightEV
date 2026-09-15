@@ -1,0 +1,65 @@
+/* BrightEV — colour tokens. Values transcribed verbatim from the source Figma file. */
+:root{
+  /* Base neutrals (dark) */
+  --bev-black:#0E0E0E;            /* rgb(14,14,14)  nav, footer, dark sections */
+  --bev-black-page:#131313;       /* rgb(19,19,19)  page canvas */
+  --bev-black-ink:#141414;        /* rgb(20,20,20)  ink on gold surfaces */
+  --bev-ink:#111111;              /* rgb(17,17,17)  headings on light */
+  --bev-surface-1:#201F1F;        /* rgb(32,31,31)  dark cards, promo strip */
+  --bev-surface-2:#1C1B1B;        /* rgb(28,27,27)  dark section bg, inset panels */
+  --bev-surface-3:#2A2A2A;        /* rgb(42,42,42)  secondary buttons, hairlines */
+  --bev-surface-4:#353534;        /* rgb(53,53,52)  chips, icon tiles */
+
+  /* Base neutrals (light) */
+  --bev-white:#FFFFFF;
+  --bev-offwhite:#F5F4F1;         /* rgb(245,244,241) light sections */
+  --bev-muted:#6B6B6B;            /* rgb(107,107,107) body on light */
+  --bev-legal:#8A8A8A;            /* rgb(138,138,138) footer legal line */
+
+  /* Gold — the single accent */
+  --bev-gold:#C8922B;             /* rgb(200,146,43) CTAs, kickers on light */
+  --bev-gold-light:#F8BC52;       /* rgb(248,188,82) kickers/icons on dark */
+  --bev-gold-pale:#FFDEAC;        /* rgb(255,222,172) large price numerals */
+
+  /* Warm sand — body copy on dark */
+  --bev-sand:#D4C4B0;             /* rgb(212,196,176) */
+  --bev-sand-bright:#E5E2E1;      /* rgb(229,226,225) phone number in header */
+
+  /* Semantic */
+  --bev-success:#3D8B57;          /* rgb(61,139,87) check marks, live status dot */
+
+  /* Translucent overlays */
+  --bev-header-bg:rgba(14,14,14,0.95);
+  --bev-overlay-80:rgba(14,14,14,0.8);
+  --bev-overlay-70:rgba(14,14,14,0.7);
+  --bev-overlay-30:rgba(14,14,14,0.3);
+  --bev-overlay-90:rgba(14,14,14,0.9);
+  --bev-scrim-dark:rgba(20,20,20,0.8);
+  --bev-chip-glass:rgba(42,42,42,0.8);
+  --bev-gold-tint-20:rgba(248,188,82,0.2);
+  --bev-gold-wash-20:rgba(200,146,43,0.2);
+  --bev-ghost-light:rgba(53,53,52,0.2);
+
+  /* Hero protection gradient — left-to-right darkness over photography */
+  --bev-hero-scrim:linear-gradient(90deg,rgba(14,14,14,0.9412) 0%,rgba(14,14,14,0.8157) 35%,rgba(14,14,14,0.5333) 60%,rgba(14,14,14,0.1333) 80%,rgba(14,14,14,0) 100%); /* @kind other */
+  /* Bottom-up caption scrim on photo tiles */
+  --bev-caption-scrim:linear-gradient(0deg,rgba(14,14,14,0.9) 0%,rgba(14,14,14,0) 50%,rgba(14,14,14,0) 100%); /* @kind other */
+  --bev-caption-scrim-soft:linear-gradient(0deg,rgba(20,20,20,0.8) 0%,rgba(20,20,20,0) 50%,rgba(20,20,20,0) 100%); /* @kind other */
+
+  /* Semantic aliases */
+  --text-heading-dark:var(--bev-white);
+  --text-heading-light:var(--bev-ink);
+  --text-body-dark:var(--bev-sand);
+  --text-body-light:var(--bev-muted);
+  --text-kicker-dark:var(--bev-gold-light);
+  --text-kicker-light:var(--bev-gold);
+  --surface-page:var(--bev-black-page);
+  --surface-card-dark:var(--bev-surface-1);
+  --surface-card-light:var(--bev-white);
+  --surface-section-light:var(--bev-offwhite);
+  --action-primary:var(--bev-gold);
+  --action-primary-ink:var(--bev-black-ink);
+  --action-secondary-dark:var(--bev-surface-3);
+  --action-secondary-light:var(--bev-ghost-light);
+  --action-solid-ink:var(--bev-ink);
+}

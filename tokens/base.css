@@ -1,0 +1,25 @@
+/* BrightEV — minimal global base + reusable text roles. */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:var(--font-body);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--bev-sand);background:var(--bev-black-page);-webkit-font-smoothing:antialiased}
+a{color:var(--bev-gold-light);text-decoration:none;transition:color var(--dur-micro) var(--ease-out-expo)}
+a:hover{color:var(--bev-gold-pale)}
+img{display:block;max-width:100%}
+button{font-family:inherit}
+
+/* Text roles — the file's repeating type patterns */
+.bev-display-1{font-family:var(--font-display);font-weight:700;font-size:var(--fs-display-1);line-height:var(--lh-display-1);letter-spacing:var(--ls-display-1);text-transform:uppercase;margin:0}
+.bev-display-2{font-family:var(--font-display);font-weight:700;font-size:var(--fs-display-2);line-height:var(--lh-display-2);letter-spacing:var(--ls-display-2);text-transform:uppercase;margin:0}
+.bev-display-3{font-family:var(--font-display);font-weight:700;font-size:var(--fs-display-3);line-height:var(--lh-display-3);letter-spacing:var(--ls-display-3);text-transform:uppercase;margin:0}
+.bev-display-4{font-family:var(--font-display);font-weight:600;font-size:var(--fs-display-4);line-height:var(--lh-display-4);text-transform:uppercase;margin:0}
+.bev-display-5{font-family:var(--font-display);font-weight:700;font-size:var(--fs-display-5);line-height:var(--lh-display-5);letter-spacing:var(--ls-display-5);text-transform:uppercase;margin:0}
+.bev-sub-1{font-family:var(--font-sub);font-weight:600;font-size:var(--fs-sub-1);line-height:var(--lh-sub-1);letter-spacing:var(--ls-sub-1);text-transform:uppercase;margin:0}
+.bev-sub-2{font-family:var(--font-sub);font-weight:500;font-size:var(--fs-sub-2);line-height:var(--lh-sub-2);letter-spacing:var(--ls-sub-2);text-transform:uppercase;margin:0}
+.bev-sub-3{font-family:var(--font-sub);font-weight:400;font-size:var(--fs-sub-3);line-height:var(--lh-sub-3);letter-spacing:var(--ls-sub-3);text-transform:uppercase;margin:0}
+.bev-sub-4{font-family:var(--font-sub);font-weight:500;font-size:var(--fs-sub-4);line-height:var(--lh-sub-4);letter-spacing:var(--ls-sub-4);text-transform:uppercase;margin:0}
+.bev-kicker{font-family:var(--font-body);font-weight:700;font-size:var(--fs-kicker);line-height:var(--lh-kicker);letter-spacing:var(--ls-kicker);text-transform:uppercase;margin:0}
+.bev-slogan{font-family:var(--font-sub);font-weight:400;font-size:var(--fs-slogan);line-height:var(--lh-slogan);letter-spacing:var(--ls-slogan);text-transform:uppercase;margin:0}
+.bev-body{font-size:var(--fs-body);line-height:var(--lh-body);margin:0}
+.bev-body-lg{font-size:var(--fs-body-lg);line-height:var(--lh-body-lg);margin:0}
+.bev-price{font-family:var(--font-sub);font-weight:700;font-size:var(--fs-price-lg);line-height:var(--lh-price-lg);color:var(--bev-gold-pale)}
+
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
