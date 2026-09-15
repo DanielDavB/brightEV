@@ -123,15 +123,43 @@ function initScrollProgress() {
   };
 }
 
+function initProductCardTilt() {
+  if (prefersReducedMotion.matches || !window.matchMedia("(hover: hover)").matches) return () => {};
+  const cards = [...document.querySelectorAll(".inventory-card")];
+  const cleanups = cards.map((card) => {
+    const onMove = (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width;
+      const y = (event.clientY - rect.top) / rect.height;
+      card.style.setProperty("--card-rotate-x", `${(0.5 - y) * 7}deg`);
+      card.style.setProperty("--card-rotate-y", `${(x - 0.5) * 9}deg`);
+      card.style.setProperty("--card-glow-x", `${x * 100}%`);
+      card.style.setProperty("--card-glow-y", `${y * 100}%`);
+    };
+    const onLeave = () => {
+      card.style.setProperty("--card-rotate-x", "0deg");
+      card.style.setProperty("--card-rotate-y", "0deg");
+      card.style.setProperty("--card-glow-x", "50%");
+      card.style.setProperty("--card-glow-y", "30%");
+    };
+    card.addEventListener("pointermove", onMove);
+    card.addEventListener("pointerleave", onLeave);
+    return () => { card.removeEventListener("pointermove", onMove); card.removeEventListener("pointerleave", onLeave); };
+  });
+  return () => cleanups.forEach((cleanup) => cleanup());
+}
+
 export function initScrollAnimations() {
   const cleanupReveal = initRevealAnimations();
   const cleanupParallax = initParallax();
   const cleanupStory = initStoryScrollytelling();
   const cleanupProgress = initScrollProgress();
+  const cleanupCardTilt = initProductCardTilt();
   return () => {
     cleanupReveal();
     cleanupParallax();
     cleanupStory();
     cleanupProgress();
+    cleanupCardTilt();
   };
 }

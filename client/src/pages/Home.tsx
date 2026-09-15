@@ -140,7 +140,6 @@ export default function Home() {
 
       <section className="hero" id="top">
         <div className="hero-grid-pattern" aria-hidden="true" />
-        <div className="hero-grain" aria-hidden="true" />
         <div className="hero-particles" aria-hidden="true">
           <i /><i /><i /><i /><i /><i /><i /><i />
         </div>
