@@ -154,6 +154,11 @@ export default function Home() {
       </section>
 
       <section className="service-section" id="fleet">
+        <div className="motion-ticker" aria-label="Bright EV services">
+          <div className="motion-ticker-track">
+            <span>Electric freedom</span><i>✦</i><span>Coastal cruising</span><i>✦</i><span>Local expertise</span><i>✦</i><span>Electric freedom</span><i>✦</i><span>Coastal cruising</span><i>✦</i><span>Local expertise</span><i>✦</i>
+          </div>
+        </div>
         <div className="section-heading reveal">
           <p className="eyebrow"><span className="eyebrow-line" /> The bright side of mobility</p>
           <h2>One destination.<br /><em>Every kind of ride.</em></h2>
