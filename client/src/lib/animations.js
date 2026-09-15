@@ -189,6 +189,33 @@ function initProcessScrollSequence() {
   return () => { processObserver.disconnect(); stepObserver.disconnect(); };
 }
 
+function initServiceScrollSequence() {
+  const sequence = document.querySelector("[data-service-sequence]");
+  const cards = [...document.querySelectorAll("[data-service-card]")];
+  if (!sequence || cards.length < 3) return () => {};
+  let ticking = false;
+  let active = 0;
+  const update = () => {
+    const rect = sequence.getBoundingClientRect();
+    const activationLine = window.innerHeight * 0.2;
+    const travel = Math.max(1, rect.height - window.innerHeight * 0.72);
+    const progress = Math.max(0, Math.min(1, (activationLine - rect.top) / travel));
+    const next = Math.min(cards.length - 1, Math.floor(progress * cards.length));
+    if (next !== active) {
+      active = next;
+      sequence.setAttribute("data-active", String(active));
+      cards.forEach((card, index) => card.classList.toggle("is-service-active", index === active));
+    }
+    sequence.style.setProperty("--service-progress", `${(progress * 100).toFixed(2)}%`);
+    ticking = false;
+  };
+  const requestUpdate = () => { if (!ticking) { window.requestAnimationFrame(update); ticking = true; } };
+  window.addEventListener("scroll", requestUpdate, { passive: true });
+  window.addEventListener("resize", requestUpdate, { passive: true });
+  requestUpdate();
+  return () => { window.removeEventListener("scroll", requestUpdate); window.removeEventListener("resize", requestUpdate); };
+}
+
 export function initScrollAnimations() {
   const cleanupReveal = initRevealAnimations();
   const cleanupParallax = initParallax();
@@ -197,6 +224,7 @@ export function initScrollAnimations() {
   const cleanupCardTilt = initProductCardTilt();
   const cleanupScrollMorph = initScrollMorph();
   const cleanupProcessSequence = initProcessScrollSequence();
+  const cleanupServiceSequence = initServiceScrollSequence();
   return () => {
     cleanupReveal();
     cleanupParallax();
@@ -205,5 +233,6 @@ export function initScrollAnimations() {
     cleanupCardTilt();
     cleanupScrollMorph();
     cleanupProcessSequence();
+    cleanupServiceSequence();
   };
 }
