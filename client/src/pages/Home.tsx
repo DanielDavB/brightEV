@@ -98,6 +98,7 @@ export default function Home() {
         <nav className="desktop-nav" aria-label="Main navigation">
           <a href="#fleet">The fleet</a>
           <a href="#experience">Why Bright EV</a>
+          <a href="#story">Our story</a>
           <a href="#process">How it works</a>
           <a href="#contact">Contact</a>
         </nav>
@@ -111,6 +112,7 @@ export default function Home() {
           <nav className="mobile-nav" aria-label="Mobile navigation">
             <a href="#fleet" onClick={closeMenu}>The fleet <ArrowUpRight size={16} /></a>
             <a href="#experience" onClick={closeMenu}>Why Bright EV <ArrowUpRight size={16} /></a>
+            <a href="#story" onClick={closeMenu}>Our story <ArrowUpRight size={16} /></a>
             <a href="#process" onClick={closeMenu}>How it works <ArrowUpRight size={16} /></a>
             <a href="#contact" onClick={closeMenu}>Contact <ArrowUpRight size={16} /></a>
             <a className="mobile-nav-cta" href="tel:+18582224915" onClick={closeMenu}>Book a cart <Phone size={16} /></a>
@@ -185,6 +187,46 @@ export default function Home() {
             <li><span><Check size={14} /></span><p><strong>Support that lasts</strong> From first test drive to long after the keys are yours.</p></li>
           </ul>
           <a className="text-link text-link-dark" href="tel:+18582224915">Meet the Bright EV team <ArrowUpRight size={17} /></a>
+        </div>
+      </section>
+
+      <section className="scrollytelling-section" id="story">
+        <div className="story-stage-wrap">
+          <div className="story-stage" data-active="0">
+            <div className="story-stage-glow" />
+            <div className="story-scene story-scene-0">
+              <img src={heroImage} alt="Bright EV golf cart ready for a coastal drive" />
+              <span className="scene-label">01 / Ready when you are</span>
+            </div>
+            <div className="story-scene story-scene-1">
+              <img src={lifestyleImage} alt="Friends enjoying a golf cart outdoors" />
+              <span className="scene-label">02 / Take the scenic route</span>
+            </div>
+            <div className="story-scene story-scene-2">
+              <img src={heroImage} alt="Electric golf cart close-up detail" />
+              <span className="scene-label">03 / Keep the good going</span>
+            </div>
+            <div className="story-progress"><span /></div>
+          </div>
+        </div>
+        <div className="story-copy">
+          <div className="story-intro reveal">
+            <p className="eyebrow"><span className="eyebrow-line" /> The Bright EV story</p>
+            <h2>A better day<br /><em>starts here.</em></h2>
+            <p>Scroll through the way we think about getting around San Diego.</p>
+          </div>
+          <article className="story-chapter is-active" data-story="0">
+            <span className="story-chapter-number">01</span>
+            <div><h3>Start with the right ride.</h3><p>Every great day begins with a little intention. We curate electric carts that feel as good as they look, so your first mile already feels like a memory.</p><span className="story-chapter-tag">Sales · rentals · service</span></div>
+          </article>
+          <article className="story-chapter" data-story="1">
+            <span className="story-chapter-number">02</span>
+            <div><h3>Leave room for detours.</h3><p>Take the long way to the beach. Stop for one more coffee. Our carts are made for the in-between moments that end up being the best part of the day.</p><span className="story-chapter-tag">Mission Beach · San Diego</span></div>
+          </article>
+          <article className="story-chapter" data-story="2">
+            <span className="story-chapter-number">03</span>
+            <div><h3>Keep moving bright.</h3><p>When you find your favorite route, we help you keep it going with thoughtful maintenance, upgrades, and a team who knows your cart by name.</p><span className="story-chapter-tag">Local support · long-term joy</span></div>
+          </article>
         </div>
       </section>
 

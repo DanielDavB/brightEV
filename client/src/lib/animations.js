@@ -76,11 +76,37 @@ function initParallax() {
   };
 }
 
+function initStoryScrollytelling() {
+  const stage = document.querySelector(".story-stage");
+  const chapters = [...document.querySelectorAll(".story-chapter")];
+  if (!stage || !chapters.length || prefersReducedMotion.matches) return () => {};
+
+  let activeChapter = 0;
+  const chapterObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const nextChapter = Number(entry.target.getAttribute("data-story"));
+        if (Number.isNaN(nextChapter) || nextChapter === activeChapter) return;
+        activeChapter = nextChapter;
+        stage.setAttribute("data-active", String(activeChapter));
+        chapters.forEach((chapter, index) => chapter.classList.toggle("is-active", index === activeChapter));
+      });
+    },
+    { threshold: 0.55, rootMargin: "-8% 0px -8% 0px" },
+  );
+
+  chapters.forEach((chapter) => chapterObserver.observe(chapter));
+  return () => chapterObserver.disconnect();
+}
+
 export function initScrollAnimations() {
   const cleanupReveal = initRevealAnimations();
   const cleanupParallax = initParallax();
+  const cleanupStory = initStoryScrollytelling();
   return () => {
     cleanupReveal();
     cleanupParallax();
+    cleanupStory();
   };
 }
