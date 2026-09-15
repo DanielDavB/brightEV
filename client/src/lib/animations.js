@@ -38,7 +38,7 @@ function initRevealAnimations() {
 function initParallax() {
   if (prefersReducedMotion.matches) return () => {};
 
-  const strengths = { hero: 0.075, section: 0.035, story: 0.045, card: 0.02 };
+  const strengths = { hero: 0.075, section: 0.035, story: 0.045, card: 0.02, service: 0.028 };
   const parallaxItems = [...document.querySelectorAll("[data-parallax]")].map((element) => ({
     element,
     strength: strengths[element.getAttribute("data-parallax")] || 0.03,

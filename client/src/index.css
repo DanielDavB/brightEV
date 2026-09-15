@@ -238,3 +238,9 @@ button:focus-visible, a:focus-visible { outline: 2px solid #d9ad58; outline-offs
   .story-chapter-content { display:block; }
   .story-chapter-content > img { position:static; width:100%; height:clamp(210px,55vw,300px); margin:0 0 1.6rem; }
 }
+
+/* Service cards: scroll parallax layered over the reveal state */
+.service-card.is-visible { transform:translate3d(0,var(--scroll-parallax,0),0); }
+.service-card.is-visible:hover { transform:translate3d(0,calc(var(--scroll-parallax,0px) - 8px),0); }
+@media (max-width:640px) { .service-card.is-visible,.service-card.is-visible:hover { transform:none; } }
+@media (prefers-reduced-motion:reduce) { .service-card.is-visible,.service-card.is-visible:hover { transform:none; } }

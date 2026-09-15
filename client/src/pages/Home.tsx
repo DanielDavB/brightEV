@@ -190,7 +190,7 @@ export default function Home() {
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
-              <article className={`service-card reveal reveal-delay-${index + 1}`} key={service.number}>
+              <article className={`service-card reveal reveal-delay-${index + 1}`} data-parallax="service" key={service.number}>
                 <div className="service-card-top"><span>{service.number}</span><Icon size={22} strokeWidth={1.5} /></div>
                 <div className="service-card-body"><h3>{service.title}</h3><p>{service.description}</p></div>
                 <a href="tel:+18582224915" className="service-card-link">{service.action} <ArrowUpRight size={15} /></a>
