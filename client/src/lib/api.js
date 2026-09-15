@@ -5,6 +5,11 @@
  * site exposes product information, but no documented browser-safe inventory
  * endpoint was found, so the UI uses resilient local mock data until a dealer
  * API URL is supplied.
+ *
+ * fallbackCarts below is grounded in the real, public Coala model pages
+ * (drivecoala.com), checked 2026-09-15 — this redesign only carries genuine
+ * Coala inventory. Pricing was not published on those pages, so "Call for
+ * current pricing" is used instead of an invented number.
  */
 
 const CACHE_KEY = "bright-ev-cart-inventory-v1";
@@ -13,34 +18,24 @@ const API_URL = import.meta.env.VITE_DRIVECO_API_URL || "";
 
 export const fallbackCarts = [
   {
-    id: "epic-e60",
-    name: "EPIC E60",
-    eyebrow: "Six passenger",
-    image: "/manus-storage/bright-service-cart_1044517b.jpg",
-    capacity: "6 passengers",
-    range: "60+ miles",
-    price: "Call for price",
-    specs: ["Lithium electric", "Premium build", "Street ready"],
-  },
-  {
     id: "coala-cruzer",
     name: "Coala Cruzer",
-    eyebrow: "Four passenger",
-    image: "/manus-storage/bright-hero-cart_6418c749.jpg",
+    eyebrow: "4 passenger · street legal",
+    image: "/hero-fleet.jpg",
     capacity: "4 passengers",
-    range: "51V lithium",
-    price: "Call for price",
-    specs: ["10.1 in display", "14 in wheels", "Bluetooth ready"],
+    range: "50–60 mile range",
+    price: "Call for current pricing",
+    specs: ["51V lithium battery", "10.1 in touch display", "14 in wheels"],
   },
   {
-    id: "icon-ev",
-    name: "Icon EV",
-    eyebrow: "Neighborhood edition",
-    image: "/manus-storage/bright-lifestyle-cart_e05e1db1.jpg",
+    id: "coala-coast",
+    name: "Coala Coast",
+    eyebrow: "4 passenger · street legal",
+    image: "/hero-fleet.jpg",
     capacity: "4 passengers",
-    range: "Long range",
-    price: "Call for price",
-    specs: ["Quiet powertrain", "Comfort seats", "Custom options"],
+    range: "50–60 mile range",
+    price: "Call for current pricing",
+    specs: ["5kW / 6.3kW motor", "Backup camera", "Premium plush seating"],
   },
 ];
 

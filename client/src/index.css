@@ -254,3 +254,69 @@ button:focus-visible, a:focus-visible { outline: 2px solid #d9ad58; outline-offs
 /* Keep horizontal overflow clipped without creating a vertical sticky container. */
 html, body { overflow-x:clip; }
 .service-sequence .service-grid { position:-webkit-sticky; position:sticky; }
+
+/* Multi-page nav: dropdown for Street Legal / Commercial sub-sections */
+.nav-item { position:relative; display:flex; align-items:center; }
+.nav-item > a { display:flex; align-items:center; gap:.3rem; }
+.nav-item-caret { color:#847d73; transition:transform .18s ease, color .18s ease; }
+.nav-item:hover .nav-item-caret, .nav-item:focus-within .nav-item-caret { color:var(--gold); transform:rotate(180deg); }
+.nav-dropdown { position:absolute; z-index:30; top:100%; left:50%; min-width:170px; margin-top:.9rem; padding:.5rem; background:#171715; border:1px solid rgba(245,239,230,.14); box-shadow:0 18px 40px rgba(0,0,0,.4); opacity:0; pointer-events:none; transform:translateX(-50%) translateY(4px); transition:opacity .18s ease, transform .18s ease; }
+.nav-item:hover .nav-dropdown, .nav-item:focus-within .nav-dropdown { opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0); }
+.nav-dropdown a { display:block; padding:.6rem .7rem; color:rgba(245,239,230,.82); font-size:10.5px; font-weight:600; letter-spacing:.05em; text-decoration:none; white-space:nowrap; }
+.nav-dropdown a:hover { color:var(--gold); }
+.mobile-nav-sub { display:flex; flex-direction:column; padding:0 0 .3rem 1.1rem; }
+.mobile-nav-sub a { padding:.65rem .4rem; color:#c7c0b5; font-size:12px; text-decoration:none; border-bottom:0; }
+.mobile-nav-sub a:hover { color:var(--gold); }
+
+/* Interior page banner (Street Legal / Commercial / Services / Contact) */
+.page-banner { position:relative; display:flex; align-items:flex-end; min-height:44vh; padding:clamp(9rem, 15vh, 11.5rem) clamp(1.5rem, 8vw, 8rem) 3.5rem; overflow:hidden; background:var(--ink); }
+.page-banner img { position:absolute; inset:0; z-index:0; width:100%; height:100%; object-fit:cover; filter:grayscale(.3) contrast(1.05) saturate(.75); opacity:.5; }
+.page-banner::after { content:""; position:absolute; inset:0; z-index:0; background:linear-gradient(180deg, rgba(11,11,11,.8) 0%, rgba(11,11,11,.95) 100%); }
+.page-banner-copy { position:relative; z-index:1; max-width:720px; }
+.page-banner-copy h1 { margin:0; color:var(--cream); font-family:'Bodoni Moda',serif; font-size:clamp(3rem, 6vw, 5.4rem); font-weight:400; letter-spacing:-.07em; line-height:.94; }
+.page-banner-copy h1 em { color:var(--gold); font-style:italic; }
+.page-banner-copy > p { max-width:540px; margin:1.4rem 0 0; color:var(--muted-cream); font-size:14px; line-height:1.75; }
+.category-subnav { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.8rem; }
+.category-subnav a { padding:.6rem 1rem; border:1px solid rgba(245,239,230,.28); color:var(--cream); font-size:10px; font-weight:700; letter-spacing:.1em; text-decoration:none; text-transform:uppercase; transition:border-color .18s ease, color .18s ease; }
+.category-subnav a:hover { border-color:var(--gold); color:var(--gold); }
+@media (max-width:640px) { .page-banner { min-height:38vh; padding-top:8.5rem; } }
+
+/* Category sections (Street Legal / Commercial detail pages) */
+.category-section { padding:clamp(4.5rem, 9vw, 7.5rem) clamp(1.5rem, 8vw, 8rem); background:var(--cream); color:var(--ink); border-top:1px solid rgba(11,11,11,.08); }
+.category-section:nth-of-type(even) { background:#efe8db; }
+.category-heading { max-width:1180px; margin:0 auto 2.5rem; }
+.category-heading h2 { margin:0 0 .9rem; font-family:'Bodoni Moda',serif; font-size:clamp(2.4rem, 4vw, 3.6rem); font-weight:500; letter-spacing:-.06em; }
+.category-heading h2 em { color:var(--gold); font-style:italic; }
+.category-heading > p { max-width:640px; margin:0; color:#6f695f; font-size:14px; line-height:1.75; }
+.category-body { display:grid; max-width:1180px; margin:0 auto; grid-template-columns:1.1fr .9fr; gap:3rem; align-items:start; }
+.category-specs { display:grid; margin:0; padding:0; list-style:none; gap:.15rem; }
+.category-specs li { display:flex; flex-wrap:wrap; gap:.4rem .6rem; padding:.6rem 0; border-bottom:1px solid rgba(11,11,11,.1); font-size:12.5px; color:#4a453d; line-height:1.5; }
+.category-specs li strong { min-width:130px; color:#1c1a16; }
+.category-note { margin-top:1.4rem; padding:.8rem .95rem; border:1px dashed rgba(11,11,11,.25); color:#6f695f; font-size:11.5px; line-height:1.65; }
+.category-cta { display:inline-flex; align-items:center; gap:.55rem; margin-top:1.6rem; color:var(--ink); font-size:10px; font-weight:700; letter-spacing:.12em; text-decoration:none; text-transform:uppercase; }
+.category-cta svg { color:var(--gold); transition:transform .2s ease; }
+.category-cta:hover svg { transform:translate(3px,-3px); }
+.photo-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(190px, 1fr)); gap:.75rem; }
+.photo-grid img { width:100%; aspect-ratio:4 / 3; object-fit:cover; background:#e3dbcd; filter:grayscale(.18) contrast(1.05); }
+@media (max-width:900px) { .category-body { grid-template-columns:1fr; } }
+
+/* Services page */
+.services-page-body { max-width:1180px; margin:0 auto; padding:clamp(5rem, 9vw, 7.5rem) clamp(1.5rem, 8vw, 8rem); display:grid; grid-template-columns:1fr .8fr; gap:3.5rem; background:var(--cream); color:var(--ink); }
+.services-list { display:grid; margin:1.8rem 0 0; padding:0; list-style:none; gap:.6rem; }
+.services-list li { display:flex; align-items:center; gap:.7rem; padding:.7rem 0; border-bottom:1px solid rgba(11,11,11,.12); font-size:13px; color:#3c3830; }
+.services-list li svg { flex:none; color:var(--gold); }
+.service-outbound-card { padding:2.2rem; background:var(--ink); color:var(--cream); align-self:start; }
+.service-outbound-card h3 { margin:0 0 .8rem; font-family:'Bodoni Moda',serif; font-size:26px; font-weight:500; letter-spacing:-.05em; }
+.service-outbound-card p { margin:0 0 1.5rem; color:var(--muted-cream); font-size:13px; line-height:1.7; }
+.service-outbound-card a.button { width:100%; }
+.service-outbound-card .category-note { margin-top:1.4rem; border-color:rgba(245,239,230,.28); color:var(--muted-cream); }
+@media (max-width:900px) { .services-page-body { grid-template-columns:1fr; } }
+
+/* Contact page */
+.contact-page-body { max-width:1180px; margin:0 auto; padding:clamp(5rem, 9vw, 7.5rem) clamp(1.5rem, 8vw, 8rem); display:grid; grid-template-columns:1fr 1fr; gap:3.5rem; background:var(--ink); }
+.contact-card { padding:2rem; border:1px solid rgba(245,239,230,.14); }
+.contact-card h3 { margin:0 0 1.2rem; font-family:'Bodoni Moda',serif; font-size:22px; font-weight:500; letter-spacing:-.04em; color:var(--cream); }
+.contact-card a, .contact-card p { display:block; margin:0 0 .5rem; color:var(--muted-cream); font-size:13px; line-height:1.6; text-decoration:none; }
+.contact-card a:hover { color:var(--gold); }
+.contact-card .button { margin-top:1rem; }
+@media (max-width:900px) { .contact-page-body { grid-template-columns:1fr; } }

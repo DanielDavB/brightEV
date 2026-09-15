@@ -4,12 +4,20 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import Commercial from "./pages/Commercial";
+import Contact from "./pages/Contact";
 import Home from "./pages/Home";
+import Services from "./pages/Services";
+import StreetLegal from "./pages/StreetLegal";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/street-legal" component={StreetLegal} />
+      <Route path="/commercial" component={Commercial} />
+      <Route path="/services" component={Services} />
+      <Route path="/contact" component={Contact} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
