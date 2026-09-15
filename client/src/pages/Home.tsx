@@ -262,15 +262,15 @@ export default function Home() {
           </div>
           <article className="story-chapter is-active" data-story="0">
             <span className="story-chapter-number">01</span>
-            <div><h3>Start with the right ride.</h3><p>Every great day begins with a little intention. We curate electric carts that feel as good as they look, so your first mile already feels like a memory.</p><span className="story-chapter-tag">Sales · rentals · service</span></div>
+            <div className="story-chapter-content"><img src={heroImage} alt="Electric cart ready for its first coastal drive" loading="lazy" /><div><h3>Start with the right ride.</h3><p>Every great day begins with a little intention. We curate electric carts that feel as good as they look, so your first mile already feels like a memory.</p><span className="story-chapter-tag">Sales · rentals · service</span></div></div>
           </article>
           <article className="story-chapter" data-story="1">
             <span className="story-chapter-number">02</span>
-            <div><h3>Leave room for detours.</h3><p>Take the long way to the beach. Stop for one more coffee. Our carts are made for the in-between moments that end up being the best part of the day.</p><span className="story-chapter-tag">Mission Beach · San Diego</span></div>
+            <div className="story-chapter-content"><img src={lifestyleImage} alt="Friends taking a detour in an electric golf cart" loading="lazy" /><div><h3>Leave room for detours.</h3><p>Take the long way to the beach. Stop for one more coffee. Our carts are made for the in-between moments that end up being the best part of the day.</p><span className="story-chapter-tag">Mission Beach · San Diego</span></div></div>
           </article>
           <article className="story-chapter" data-story="2">
             <span className="story-chapter-number">03</span>
-            <div><h3>Keep moving bright.</h3><p>When you find your favorite route, we help you keep it going with thoughtful maintenance, upgrades, and a team who knows your cart by name.</p><span className="story-chapter-tag">Local support · long-term joy</span></div>
+            <div className="story-chapter-content"><img src={heroImage} alt="Close-up of a golf cart ready for continued adventures" loading="lazy" /><div><h3>Keep moving bright.</h3><p>When you find your favorite route, we help you keep it going with thoughtful maintenance, upgrades, and a team who knows your cart by name.</p><span className="story-chapter-tag">Local support · long-term joy</span></div></div>
           </article>
         </div>
       </section>
@@ -283,9 +283,9 @@ export default function Home() {
           <a className="button button-outline" href="tel:+18582224915">Start a conversation <ArrowUpRight size={17} /></a>
         </div>
         <div className="process-steps">
-          <div className="process-step reveal reveal-delay-1"><span className="step-number">01</span><div><h3>Choose your cart</h3><p>Browse our fleet or tell us what you have in mind. We'll match you with the right ride.</p></div></div>
-          <div className="process-step reveal reveal-delay-2"><span className="step-number">02</span><div><h3>Make it yours</h3><p>Pick your dates, add the details, and we'll have everything ready when you arrive.</p></div></div>
-          <div className="process-step reveal reveal-delay-3"><span className="step-number">03</span><div><h3>Enjoy the drive</h3><p>Grab the keys and take the scenic route. We'll be here when you need us next.</p></div></div>
+          <div className="process-step reveal reveal-delay-1" data-process-step="1"><span className="step-number">01</span><div><h3>Choose your cart</h3><p>Browse our fleet or tell us what you have in mind. We'll match you with the right ride.</p></div></div>
+          <div className="process-step reveal reveal-delay-2" data-process-step="2"><span className="step-number">02</span><div><h3>Make it yours</h3><p>Pick your dates, add the details, and we'll have everything ready when you arrive.</p></div></div>
+          <div className="process-step reveal reveal-delay-3" data-process-step="3"><span className="step-number">03</span><div><h3>Enjoy the drive</h3><p>Grab the keys and take the scenic route. We'll be here when you need us next.</p></div></div>
         </div>
       </section>
 

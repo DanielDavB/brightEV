@@ -169,6 +169,26 @@ function initScrollMorph() {
   return () => { window.removeEventListener("scroll", requestUpdate); window.removeEventListener("resize", requestUpdate); };
 }
 
+function initProcessScrollSequence() {
+  const process = document.querySelector(".process-section");
+  const steps = [...document.querySelectorAll("[data-process-step]")];
+  if (!process || !steps.length) return () => {};
+  if (prefersReducedMotion.matches || !("IntersectionObserver" in window)) {
+    process.classList.add("is-scroll-active");
+    steps.forEach((step) => step.classList.add("is-step-active"));
+    return () => {};
+  }
+  const processObserver = new IntersectionObserver(([entry]) => {
+    process.classList.toggle("is-scroll-active", entry.isIntersecting);
+  }, { threshold: 0.18 });
+  const stepObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => entry.target.classList.toggle("is-step-active", entry.isIntersecting));
+  }, { threshold: 0.62, rootMargin: "-8% 0px -8% 0px" });
+  processObserver.observe(process);
+  steps.forEach((step) => stepObserver.observe(step));
+  return () => { processObserver.disconnect(); stepObserver.disconnect(); };
+}
+
 export function initScrollAnimations() {
   const cleanupReveal = initRevealAnimations();
   const cleanupParallax = initParallax();
@@ -176,6 +196,7 @@ export function initScrollAnimations() {
   const cleanupProgress = initScrollProgress();
   const cleanupCardTilt = initProductCardTilt();
   const cleanupScrollMorph = initScrollMorph();
+  const cleanupProcessSequence = initProcessScrollSequence();
   return () => {
     cleanupReveal();
     cleanupParallax();
@@ -183,5 +204,6 @@ export function initScrollAnimations() {
     cleanupProgress();
     cleanupCardTilt();
     cleanupScrollMorph();
+    cleanupProcessSequence();
   };
 }
