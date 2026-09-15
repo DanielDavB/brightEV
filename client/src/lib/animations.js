@@ -149,17 +149,39 @@ function initProductCardTilt() {
   return () => cleanups.forEach((cleanup) => cleanup());
 }
 
+function initScrollMorph() {
+  const hero = document.querySelector(".hero");
+  const heroTitle = document.querySelector(".hero h1");
+  if (!hero || !heroTitle || prefersReducedMotion.matches) return () => {};
+  let ticking = false;
+  const update = () => {
+    const distance = Math.max(0, Math.min(1, window.scrollY / Math.max(1, hero.offsetHeight * 0.72)));
+    heroTitle.style.setProperty("--title-scroll-scale", (1 - distance * 0.12).toFixed(3));
+    heroTitle.style.setProperty("--title-scroll-y", `${distance * -22}px`);
+    heroTitle.style.setProperty("--title-scroll-opacity", (1 - distance * 0.28).toFixed(3));
+    heroTitle.classList.toggle("is-scroll-morphed", distance > 0.18);
+    ticking = false;
+  };
+  const requestUpdate = () => { if (!ticking) { window.requestAnimationFrame(update); ticking = true; } };
+  window.addEventListener("scroll", requestUpdate, { passive: true });
+  window.addEventListener("resize", requestUpdate, { passive: true });
+  requestUpdate();
+  return () => { window.removeEventListener("scroll", requestUpdate); window.removeEventListener("resize", requestUpdate); };
+}
+
 export function initScrollAnimations() {
   const cleanupReveal = initRevealAnimations();
   const cleanupParallax = initParallax();
   const cleanupStory = initStoryScrollytelling();
   const cleanupProgress = initScrollProgress();
   const cleanupCardTilt = initProductCardTilt();
+  const cleanupScrollMorph = initScrollMorph();
   return () => {
     cleanupReveal();
     cleanupParallax();
     cleanupStory();
     cleanupProgress();
     cleanupCardTilt();
+    cleanupScrollMorph();
   };
 }

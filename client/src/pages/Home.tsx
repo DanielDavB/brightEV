@@ -71,6 +71,7 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [carts, setCarts] = useState(fallbackCarts);
   const [inventorySource, setInventorySource] = useState("fallback");
+  const [comparisonIds, setComparisonIds] = useState<string[]>([]);
 
   useEffect(() => {
     const cleanupScrollAnimations = initScrollAnimations();
@@ -95,6 +96,12 @@ export default function Home() {
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
+  const toggleComparison = (id: string) => {
+    setComparisonIds((current) => current.includes(id)
+      ? current.filter((item) => item !== id)
+      : current.length < 3 ? [...current, id] : current);
+  };
+  const comparedCarts = carts.filter((cart) => comparisonIds.includes(cart.id));
 
   return (
     <main className="min-h-screen overflow-hidden bg-ink text-cream">
@@ -198,12 +205,16 @@ export default function Home() {
         </div>
         <div className="inventory-grid" data-animate="fade-in-stagger">
           {carts.map((cart, index) => <article className={`inventory-card reveal reveal-delay-${(index % 3) + 1}`} data-cart-id={cart.id} key={cart.id}>
-            <div className="inventory-image"><img data-parallax="card" src={cart.image} alt={cart.name} loading="lazy" /><span>{cart.eyebrow}</span><button aria-label={`View ${cart.name}`}><ArrowUpRight size={17} /></button></div>
+            <div className="inventory-image"><img data-parallax="card" src={cart.image} alt={cart.name} loading="lazy" /><span>{cart.eyebrow}</span><button className="compare-toggle" aria-label={`Compare ${cart.name}`} aria-pressed={comparisonIds.includes(cart.id)} onClick={() => toggleComparison(cart.id)}><Check size={17} /></button></div>
             <div className="inventory-card-copy"><div><h3>{cart.name}</h3><p>{cart.capacity} · {cart.range}</p></div><strong>{cart.price}</strong></div>
             <div className="inventory-specs">{cart.specs?.map((spec) => <span key={spec}>{spec}</span>)}</div>
-            <a href="tel:+18582224915">Learn more <ArrowUpRight size={14} /></a>
+            <div className="inventory-card-actions"><button className="compare-text" aria-pressed={comparisonIds.includes(cart.id)} onClick={() => toggleComparison(cart.id)}>{comparisonIds.includes(cart.id) ? "Selected to compare" : "Add to compare"}</button><a href="tel:+18582224915">Learn more <ArrowUpRight size={14} /></a></div>
           </article>)}
         </div>
+        {comparedCarts.length > 0 && <section className="comparison-panel" aria-label="Cart comparison">
+          <div className="comparison-panel-heading"><div><p className="eyebrow"><span className="eyebrow-line" /> Side by side</p><h3>Compare your<br /><em>shortlist.</em></h3></div><div className="comparison-panel-actions"><span>{comparedCarts.length} of 3 selected</span><button onClick={() => setComparisonIds([])}>Clear all</button></div></div>
+          <div className="comparison-table-wrap"><table className="comparison-table"><thead><tr><th>Spec</th>{comparedCarts.map((cart) => <th key={cart.id}>{cart.name}<button aria-label={`Remove ${cart.name}`} onClick={() => toggleComparison(cart.id)}>×</button></th>)}</tr></thead><tbody><tr><th>Capacity</th>{comparedCarts.map((cart) => <td key={`${cart.id}-capacity`}>{cart.capacity}</td>)}</tr><tr><th>Range / battery</th>{comparedCarts.map((cart) => <td key={`${cart.id}-range`}>{cart.range}</td>)}</tr><tr><th>Price</th>{comparedCarts.map((cart) => <td key={`${cart.id}-price`}>{cart.price}</td>)}</tr><tr><th>Highlights</th>{comparedCarts.map((cart) => <td key={`${cart.id}-specs`}>{cart.specs?.join(" · ")}</td>)}</tr></tbody></table></div>
+        </section>}
       </section>
 
       <section className="experience-section" id="experience">
