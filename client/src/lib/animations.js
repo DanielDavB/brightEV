@@ -38,10 +38,11 @@ function initRevealAnimations() {
 function initParallax() {
   if (prefersReducedMotion.matches) return () => {};
 
-  const parallaxItems = [
-    { element: document.querySelector(".hero-image-wrap img"), strength: 0.045 },
-    { element: document.querySelector(".experience-image img"), strength: 0.028 },
-  ].filter(({ element }) => element);
+  const strengths = { hero: 0.075, section: 0.035, story: 0.045, card: 0.02 };
+  const parallaxItems = [...document.querySelectorAll("[data-parallax]")].map((element) => ({
+    element,
+    strength: strengths[element.getAttribute("data-parallax")] || 0.03,
+  }));
 
   if (!parallaxItems.length) return () => {};
 
