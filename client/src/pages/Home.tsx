@@ -99,6 +99,10 @@ export default function Home() {
   return (
     <main className="min-h-screen overflow-hidden bg-ink text-cream">
       <div className="scroll-progress-bar" aria-hidden="true"><span /></div>
+      <a className="floating-quote" href="#contact" aria-label="Solicitar cotización">
+        <span className="floating-quote-pulse" aria-hidden="true" />
+        <span>Solicitar<br />cotización</span><ArrowUpRight size={16} />
+      </a>
       <div className="announcement-bar">
         <p>San Diego's electric cart specialists <span>•</span> Mission Beach, CA</p>
         <a href="tel:+18582224915">Call (858) 222-4915 <ArrowUpRight size={13} /></a>
@@ -136,6 +140,10 @@ export default function Home() {
 
       <section className="hero" id="top">
         <div className="hero-grid-pattern" aria-hidden="true" />
+        <div className="hero-grain" aria-hidden="true" />
+        <div className="hero-particles" aria-hidden="true">
+          <i /><i /><i /><i /><i /><i /><i /><i />
+        </div>
         <div className="hero-copy reveal">
           <p className="eyebrow"><span className="eyebrow-line" /> Brightening your drive</p>
           <h1>Ride <span>different.</span></h1>
