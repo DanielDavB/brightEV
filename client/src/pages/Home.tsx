@@ -14,6 +14,7 @@ import {
   Wrench,
   X,
 } from "lucide-react";
+import "../lib/animations";
 
 const heroImage = "/manus-storage/bright-service-cart_1044517b.jpg";
 const lifestyleImage = "/manus-storage/bright-lifestyle-cart_e05e1db1.jpg";
@@ -73,19 +74,8 @@ export default function Home() {
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("is-visible");
-        });
-      },
-      { threshold: 0.12 },
-    );
-    document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
-
     return () => {
       window.removeEventListener("scroll", onScroll);
-      observer.disconnect();
     };
   }, []);
 
