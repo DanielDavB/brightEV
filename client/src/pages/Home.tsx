@@ -14,7 +14,7 @@ import {
   Wrench,
   X,
 } from "lucide-react";
-import "../lib/animations";
+import { initScrollAnimations } from "../lib/animations";
 
 const heroImage = "/manus-storage/bright-service-cart_1044517b.jpg";
 const lifestyleImage = "/manus-storage/bright-lifestyle-cart_e05e1db1.jpg";
@@ -70,12 +70,14 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    const cleanupScrollAnimations = initScrollAnimations();
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
     return () => {
       window.removeEventListener("scroll", onScroll);
+      cleanupScrollAnimations();
     };
   }, []);
 

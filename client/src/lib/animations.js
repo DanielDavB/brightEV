@@ -13,11 +13,11 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
 function initRevealAnimations() {
   const revealItems = document.querySelectorAll(".reveal");
-  if (!revealItems.length) return;
+  if (!revealItems.length) return () => {};
 
   if (prefersReducedMotion.matches || !("IntersectionObserver" in window)) {
     revealItems.forEach((item) => item.classList.add("is-visible"));
-    return;
+    return () => {};
   }
 
   const observer = new IntersectionObserver(
@@ -32,17 +32,18 @@ function initRevealAnimations() {
   );
 
   revealItems.forEach((item) => observer.observe(item));
+  return () => observer.disconnect();
 }
 
 function initParallax() {
-  if (prefersReducedMotion.matches) return;
+  if (prefersReducedMotion.matches) return () => {};
 
   const parallaxItems = [
     { element: document.querySelector(".hero-image-wrap img"), strength: 0.045 },
     { element: document.querySelector(".experience-image img"), strength: 0.028 },
   ].filter(({ element }) => element);
 
-  if (!parallaxItems.length) return;
+  if (!parallaxItems.length) return () => {};
 
   let ticking = false;
 
@@ -69,17 +70,17 @@ function initParallax() {
   window.addEventListener("scroll", requestUpdate, { passive: true });
   window.addEventListener("resize", requestUpdate, { passive: true });
   requestUpdate();
+  return () => {
+    window.removeEventListener("scroll", requestUpdate);
+    window.removeEventListener("resize", requestUpdate);
+  };
 }
 
-function init() {
-  initRevealAnimations();
-  initParallax();
+export function initScrollAnimations() {
+  const cleanupReveal = initRevealAnimations();
+  const cleanupParallax = initParallax();
+  return () => {
+    cleanupReveal();
+    cleanupParallax();
+  };
 }
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", init, { once: true });
-} else {
-  init();
-}
-
-prefersReducedMotion.addEventListener?.("change", () => window.location.reload());
