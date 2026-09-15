@@ -15,6 +15,7 @@ import {
   X,
 } from "lucide-react";
 import { initScrollAnimations } from "../lib/animations";
+import { fallbackCarts, getCartInventory } from "../lib/api";
 
 const heroImage = "/manus-storage/bright-service-cart_1044517b.jpg";
 const lifestyleImage = "/manus-storage/bright-lifestyle-cart_e05e1db1.jpg";
@@ -68,6 +69,8 @@ function scrollToSection(id: string) {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [carts, setCarts] = useState(fallbackCarts);
+  const [inventorySource, setInventorySource] = useState("fallback");
 
   useEffect(() => {
     const cleanupScrollAnimations = initScrollAnimations();
@@ -81,10 +84,21 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    let mounted = true;
+    getCartInventory().then(({ data, source }) => {
+      if (!mounted) return;
+      setCarts(data);
+      setInventorySource(source);
+    });
+    return () => { mounted = false; };
+  }, []);
+
   const closeMenu = () => setMenuOpen(false);
 
   return (
     <main className="min-h-screen overflow-hidden bg-ink text-cream">
+      <div className="scroll-progress-bar" aria-hidden="true"><span /></div>
       <div className="announcement-bar">
         <p>San Diego's electric cart specialists <span>•</span> Mission Beach, CA</p>
         <a href="tel:+18582224915">Call (858) 222-4915 <ArrowUpRight size={13} /></a>
@@ -169,6 +183,19 @@ export default function Home() {
               </article>
             );
           })}
+        </div>
+        <div className="inventory-heading reveal">
+          <div><p className="eyebrow"><span className="eyebrow-line" /> Available now</p><h2>Find your<br /><em>perfect fit.</em></h2></div>
+          <p>Explore a few of the rides we can put under you. Ask about custom builds, delivery, and current availability.</p>
+          <span className="inventory-source">{inventorySource === "live" ? "Live inventory" : "Curated selection"} <i /></span>
+        </div>
+        <div className="inventory-grid" data-animate="fade-in-stagger">
+          {carts.map((cart, index) => <article className={`inventory-card reveal reveal-delay-${(index % 3) + 1}`} data-cart-id={cart.id} key={cart.id}>
+            <div className="inventory-image"><img src={cart.image} alt={cart.name} loading="lazy" /><span>{cart.eyebrow}</span><button aria-label={`View ${cart.name}`}><ArrowUpRight size={17} /></button></div>
+            <div className="inventory-card-copy"><div><h3>{cart.name}</h3><p>{cart.capacity} · {cart.range}</p></div><strong>{cart.price}</strong></div>
+            <div className="inventory-specs">{cart.specs?.map((spec) => <span key={spec}>{spec}</span>)}</div>
+            <a href="tel:+18582224915">Learn more <ArrowUpRight size={14} /></a>
+          </article>)}
         </div>
       </section>
 

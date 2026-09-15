@@ -100,13 +100,37 @@ function initStoryScrollytelling() {
   return () => chapterObserver.disconnect();
 }
 
+function initScrollProgress() {
+  const progress = document.querySelector(".scroll-progress-bar span");
+  if (!progress || prefersReducedMotion.matches) return () => {};
+  let ticking = false;
+  const update = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = scrollable > 0 ? window.scrollY / scrollable : 0;
+    progress.style.transform = `scaleX(${Math.min(1, Math.max(0, ratio))})`;
+    ticking = false;
+  };
+  const requestUpdate = () => {
+    if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+  };
+  window.addEventListener("scroll", requestUpdate, { passive: true });
+  window.addEventListener("resize", requestUpdate, { passive: true });
+  requestUpdate();
+  return () => {
+    window.removeEventListener("scroll", requestUpdate);
+    window.removeEventListener("resize", requestUpdate);
+  };
+}
+
 export function initScrollAnimations() {
   const cleanupReveal = initRevealAnimations();
   const cleanupParallax = initParallax();
   const cleanupStory = initStoryScrollytelling();
+  const cleanupProgress = initScrollProgress();
   return () => {
     cleanupReveal();
     cleanupParallax();
     cleanupStory();
+    cleanupProgress();
   };
 }
