@@ -198,7 +198,7 @@ function initServiceScrollSequence() {
   const update = () => {
     const rect = sequence.getBoundingClientRect();
     const startLine = window.innerHeight * 0.3;
-    const endLine = -rect.height;
+    const endLine = -(rect.height - window.innerHeight * 0.65);
     const travel = Math.max(1, startLine - endLine);
     const progress = Math.max(0, Math.min(1, (startLine - rect.top) / travel));
     const next = progress < 0.36 ? 0 : progress < 0.56 ? 1 : 2;
