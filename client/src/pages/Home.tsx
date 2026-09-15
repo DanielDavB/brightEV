@@ -104,7 +104,7 @@ export default function Home() {
   const comparedCarts = carts.filter((cart) => comparisonIds.includes(cart.id));
 
   return (
-    <main className="min-h-screen overflow-hidden bg-ink text-cream">
+    <main className="min-h-screen bg-ink text-cream">
       <div className="scroll-progress-bar" aria-hidden="true"><span /></div>
       <a className="floating-quote" href="#contact" aria-label="Solicitar cotización">
         <span className="floating-quote-pulse" aria-hidden="true" />

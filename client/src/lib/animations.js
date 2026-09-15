@@ -194,12 +194,13 @@ function initServiceScrollSequence() {
   const cards = [...document.querySelectorAll("[data-service-card]")];
   if (!sequence || cards.length < 3) return () => {};
   let ticking = false;
-  let active = 0;
+  let active = -1;
   const update = () => {
     const rect = sequence.getBoundingClientRect();
-    const activationLine = window.innerHeight * 0.2;
-    const travel = Math.max(1, rect.height - window.innerHeight * 0.72);
-    const progress = Math.max(0, Math.min(1, (activationLine - rect.top) / travel));
+    const startLine = window.innerHeight * 0.85;
+    const endLine = -(rect.height - window.innerHeight * 0.2);
+    const travel = Math.max(1, startLine - endLine);
+    const progress = Math.max(0, Math.min(1, (startLine - rect.top) / travel));
     const next = Math.min(cards.length - 1, Math.floor(progress * cards.length));
     if (next !== active) {
       active = next;

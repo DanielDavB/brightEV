@@ -250,3 +250,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid #d9ad58; outline-offs
 @media (max-width:900px) { .service-sequence { min-height:230vh; }.service-sequence .service-grid { display:block; height:390px; top:16vh; }.service-sequence .service-card { position:absolute; inset:0; opacity:0; pointer-events:none; transform:translate3d(0,22px,0) scale(.97); }.service-sequence .service-card.is-service-active { opacity:1; pointer-events:auto; transform:translate3d(0,0,0) scale(1); }.service-sequence-progress { top:calc(16vh + 390px); margin-top:-3px; } }
 @media (max-width:640px) { .service-sequence .service-grid { height:360px; }.service-sequence .service-card,.service-sequence .service-card.is-service-active { min-height:360px; }.service-sequence-progress { top:calc(16vh + 360px); } }
 @media (prefers-reduced-motion:reduce) { .service-sequence { min-height:auto; }.service-sequence .service-grid { position:relative; top:auto; height:auto; }.service-sequence .service-card,.service-sequence .service-card.is-service-active { position:relative; inset:auto; opacity:1; pointer-events:auto; transform:none; filter:none; }.service-sequence-progress { display:none; } }
+
+/* Keep horizontal overflow clipped without creating a vertical sticky container. */
+html, body { overflow-x:clip; }
+.service-sequence .service-grid { position:-webkit-sticky; position:sticky; }
