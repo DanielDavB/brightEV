@@ -197,8 +197,8 @@ function initServiceScrollSequence() {
   let active = -1;
   const update = () => {
     const rect = sequence.getBoundingClientRect();
-    const startLine = window.innerHeight * 0.85;
-    const endLine = -(rect.height - window.innerHeight * 0.2);
+    const startLine = window.innerHeight * 0.3;
+    const endLine = -(rect.height - window.innerHeight * 0.05);
     const travel = Math.max(1, startLine - endLine);
     const progress = Math.max(0, Math.min(1, (startLine - rect.top) / travel));
     const next = Math.min(cards.length - 1, Math.floor(progress * cards.length));
@@ -207,7 +207,6 @@ function initServiceScrollSequence() {
       sequence.setAttribute("data-active", String(active));
       cards.forEach((card, index) => card.classList.toggle("is-service-active", index === active));
     }
-    sequence.style.setProperty("--service-progress", `${(progress * 100).toFixed(2)}%`);
     ticking = false;
   };
   const requestUpdate = () => { if (!ticking) { window.requestAnimationFrame(update); ticking = true; } };

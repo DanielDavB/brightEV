@@ -199,7 +199,6 @@ export default function Home() {
               );
             })}
           </div>
-          <div className="service-sequence-progress" aria-hidden="true"><span /></div>
         </div>
         <div className="inventory-heading reveal">
           <div><p className="eyebrow"><span className="eyebrow-line" /> Available now</p><h2>Find your<br /><em>perfect fit.</em></h2></div>
