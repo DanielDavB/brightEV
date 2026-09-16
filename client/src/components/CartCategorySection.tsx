@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { CONTACT } from "@/data/site";
 import type { CartCategoryCopy } from "@/data/site";
 import { getCategoryPhotos, loadCartPhotoManifest } from "@/lib/cartPhotos";
+import { withBase } from "@/lib/url";
 
 interface CartCategorySectionProps {
   category: CartCategoryCopy;
@@ -36,7 +37,7 @@ export default function CartCategorySection({ category }: CartCategorySectionPro
       <div className="category-body">
         <div className="photo-grid">
           {photos.map((src) => (
-            <img key={src} src={src} alt={`${category.title} Coala golf cart`} loading="lazy" />
+            <img key={src} src={withBase(src)} alt={`${category.title} Coala golf cart`} loading="lazy" />
           ))}
         </div>
         <div>

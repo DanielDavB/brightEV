@@ -203,13 +203,21 @@ function vitePluginStorageProxy(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
-
 export default defineConfig(({ command }) => ({
   // GitHub Pages serves this repo at https://<user>.github.io/brightEV/, so
   // production builds need the /brightEV/ base; local dev keeps root-relative paths.
   base: command === "build" ? "/brightEV/" : "/",
-  plugins,
+  plugins: [
+    react(),
+    tailwindcss(),
+    jsxLocPlugin(),
+    // Manus's own hosted-preview tooling (element picker, host postMessage
+    // bridge) — only meaningful inside their platform, not a self-hosted
+    // deploy, and it broke rendering entirely under a non-root base path.
+    ...(command === "build" ? [] : [vitePluginManusRuntime()]),
+    vitePluginManusDebugCollector(),
+    vitePluginStorageProxy(),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),

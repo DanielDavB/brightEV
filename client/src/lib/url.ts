@@ -6,6 +6,8 @@
  * category jumps are not routed through wouter, so they need it applied by hand.
  */
 export function withBase(path: string): string {
+  if (/^([a-z]+:)?\/\//i.test(path)) return path; // already absolute (http(s)://, //cdn...)
   const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  if (base && path.startsWith(`${base}/`)) return path; // already prefixed
   return `${base}${path}`;
 }

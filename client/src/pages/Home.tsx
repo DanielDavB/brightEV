@@ -14,13 +14,14 @@ import { Link } from "wouter";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import { CONTACT } from "@/data/site";
+import { withBase } from "@/lib/url";
 import { initScrollAnimations } from "../lib/animations";
 import { fallbackCarts, getCartInventory } from "../lib/api";
 
-const heroImage = "/hero-fleet.jpg";
-const lifestyleImage = "/hero-fleet.jpg";
-const storyServiceImage = "/banner-service.jpg";
-const storyBatteryImage = "/banner-lithium.jpg";
+const heroImage = withBase("/hero-fleet.jpg");
+const lifestyleImage = withBase("/hero-fleet.jpg");
+const storyServiceImage = withBase("/banner-service.jpg");
+const storyBatteryImage = withBase("/banner-lithium.jpg");
 
 const services = [
   {
@@ -159,7 +160,7 @@ export default function Home() {
         <div className="inventory-grid" data-animate="fade-in-stagger">
           {carts.map((cart, index) => (
             <article className={`inventory-card reveal reveal-delay-${(index % 3) + 1}`} key={cart.id}>
-              <div className="inventory-image"><img src={cart.image} alt={cart.name} loading="lazy" /><span>{cart.eyebrow}</span></div>
+              <div className="inventory-image"><img src={withBase(cart.image)} alt={cart.name} loading="lazy" /><span>{cart.eyebrow}</span></div>
               <div className="inventory-card-copy"><div><h3>{cart.name}</h3><p>{cart.capacity} · {cart.range}</p></div><strong>{cart.price}</strong></div>
               <div className="inventory-specs">{cart.specs?.map((spec) => <span key={spec}>{spec}</span>)}</div>
               <div className="inventory-card-actions"><Link href="/street-legal#4-seater">Full specs <ArrowUpRight size={14} /></Link></div>
