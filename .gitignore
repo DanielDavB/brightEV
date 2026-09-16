@@ -114,3 +114,7 @@ client/public/__manus__/version.json
 
 # Claude Code agent worktrees
 .claude/
+
+# Original RAW inventory photography (6.3GB) — source material only.
+# Curated, web-optimized copies live in client/public/carts/ and are tracked.
+assets/images/Real carts/
