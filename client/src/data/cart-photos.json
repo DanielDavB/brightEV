@@ -1,0 +1,83 @@
+{
+  "2-seat": {
+    "white-black-seat": [
+      "/carts/2-seat/white-black-seat/01.jpg",
+      "/carts/2-seat/white-black-seat/02.jpg",
+      "/carts/2-seat/white-black-seat/03.jpg",
+      "/carts/2-seat/white-black-seat/04.jpg",
+      "/carts/2-seat/white-black-seat/05.jpg",
+      "/carts/2-seat/white-black-seat/06.jpg"
+    ],
+    "baby-blue-tan-seat": [
+      "/carts/2-seat/baby-blue-tan-seat/01.jpg",
+      "/carts/2-seat/baby-blue-tan-seat/02.jpg",
+      "/carts/2-seat/baby-blue-tan-seat/03.jpg",
+      "/carts/2-seat/baby-blue-tan-seat/04.jpg"
+    ]
+  },
+  "2-plus-2": {
+    "white-black-seat": [
+      "/carts/2-plus-2/white-black-seat/01.jpg",
+      "/carts/2-plus-2/white-black-seat/02.jpg",
+      "/carts/2-plus-2/white-black-seat/03.jpg",
+      "/carts/2-plus-2/white-black-seat/04.jpg",
+      "/carts/2-plus-2/white-black-seat/05.jpg"
+    ],
+    "baby-blue-black-seat": [
+      "/carts/2-plus-2/baby-blue-black-seat/01.jpg",
+      "/carts/2-plus-2/baby-blue-black-seat/02.jpg",
+      "/carts/2-plus-2/baby-blue-black-seat/03.jpg",
+      "/carts/2-plus-2/baby-blue-black-seat/04.jpg",
+      "/carts/2-plus-2/baby-blue-black-seat/05.jpg"
+    ]
+  },
+  "4-seater": {
+    "black-tan-seat": [
+      "/carts/4-seater/black-tan-seat/01.jpg",
+      "/carts/4-seater/black-tan-seat/02.jpg",
+      "/carts/4-seater/black-tan-seat/03.jpg",
+      "/carts/4-seater/black-tan-seat/04.jpg",
+      "/carts/4-seater/black-tan-seat/05.jpg"
+    ],
+    "cement-grey-brown-seat": [
+      "/carts/4-seater/cement-grey-brown-seat/01.jpg",
+      "/carts/4-seater/cement-grey-brown-seat/02.jpg",
+      "/carts/4-seater/cement-grey-brown-seat/03.jpg",
+      "/carts/4-seater/cement-grey-brown-seat/04.jpg",
+      "/carts/4-seater/cement-grey-brown-seat/05.jpg"
+    ],
+    "white-black-seat": [
+      "/carts/4-seater/white-black-seat/01.jpg",
+      "/carts/4-seater/white-black-seat/02.jpg",
+      "/carts/4-seater/white-black-seat/03.jpg",
+      "/carts/4-seater/white-black-seat/04.jpg",
+      "/carts/4-seater/white-black-seat/05.jpg",
+      "/carts/4-seater/white-black-seat/06.jpg"
+    ],
+    "white-brown-seat": [
+      "/carts/4-seater/white-brown-seat/01.jpg",
+      "/carts/4-seater/white-brown-seat/02.jpg",
+      "/carts/4-seater/white-brown-seat/03.jpg",
+      "/carts/4-seater/white-brown-seat/04.jpg",
+      "/carts/4-seater/white-brown-seat/05.jpg"
+    ]
+  },
+  "4-plus-2": {
+    "default": [
+      "/carts/4-plus-2/default/01.jpg",
+      "/carts/4-plus-2/default/02.jpg",
+      "/carts/4-plus-2/default/03.jpg",
+      "/carts/4-plus-2/default/04.jpg",
+      "/carts/4-plus-2/default/05.jpg"
+    ]
+  },
+  "utility": {
+    "default": [
+      "/carts/utility/default/01.jpg",
+      "/carts/utility/default/02.jpg",
+      "/carts/utility/default/03.jpg",
+      "/carts/utility/default/04.jpg",
+      "/carts/utility/default/05.jpg"
+    ]
+  }
+}
