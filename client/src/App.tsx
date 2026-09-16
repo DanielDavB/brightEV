@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Router, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Commercial from "./pages/Commercial";
@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 import Services from "./pages/Services";
 import StreetLegal from "./pages/StreetLegal";
 
-function Router() {
+function AppRoutes() {
   return (
     <Switch>
       <Route path="/" component={Home} />
@@ -24,13 +24,19 @@ function Router() {
   );
 }
 
+// GitHub Pages serves this app from /brightEV/ (see vite.config.ts `base`);
+// wouter needs that same prefix stripped of its trailing slash as its base.
+const routerBase = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="dark">
         <TooltipProvider>
           <Toaster />
-          <Router />
+          <Router base={routerBase}>
+            <AppRoutes />
+          </Router>
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

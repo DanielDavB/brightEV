@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowUpRight, ChevronDown, Menu, Phone, X } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { CONTACT, NAV_ITEMS } from "@/data/site";
+import { withBase } from "@/lib/url";
 
 export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -58,7 +59,7 @@ export default function SiteHeader() {
               {item.children && (
                 <div className="nav-dropdown">
                   {item.children.map((child) => (
-                    <a key={child.href} href={child.href}>
+                    <a key={child.href} href={withBase(child.href)}>
                       {child.label}
                     </a>
                   ))}
@@ -88,7 +89,7 @@ export default function SiteHeader() {
                 {item.children && (
                   <div className="mobile-nav-sub">
                     {item.children.map((child) => (
-                      <a key={child.href} href={child.href} onClick={closeMenu}>
+                      <a key={child.href} href={withBase(child.href)} onClick={closeMenu}>
                         {child.label}
                       </a>
                     ))}

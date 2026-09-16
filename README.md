@@ -1,22 +1,28 @@
-# BrightEV
+# Bright EV Golf Carts
 
-Static React/Babel site ready for GitHub Pages.
+React 19 + TypeScript + Vite site for Bright EV Golf Carts (San Diego).
 
 ## Structure
 
-- `index.html`: production entrypoint for GitHub Pages.
-- `styles.css`: global stylesheet that imports the token layers.
-- `_ds_bundle.js`: prebuilt design-system runtime consumed by the page.
-- `tokens/`: color, typography, layout, motion, and base styles.
-- `assets/images/`: marketing photography and brand assets.
-- `ui_kits/website/`: the current homepage implementation and section modules.
+- `client/`: the Vite app — `src/pages/` (Home, Street Legal, Commercial, Services, Contact), `src/components/`, `src/data/site.ts` (all real, sourced business/product copy), `src/data/cart-photos.json` (real inventory photo manifest), `public/carts/`: curated real inventory photos.
+- `server/`: minimal Express static file server (only needed for non-static hosts; GitHub Pages doesn't use it).
+- `assets/images/Real carts/`: original RAW (.CR2) inventory photography — source material, not served by the site.
+
+## Development
+
+```
+pnpm install
+pnpm dev      # http://localhost:3000
+pnpm check    # tsc --noEmit
+pnpm exec vite build   # production build to dist/public
+```
 
 ## GitHub Pages
 
-1. Publish the repository root as the Pages source.
-2. Keep `.nojekyll` at the root so GitHub Pages serves `_ds_bundle.js`.
-3. Open `/index.html` as the site entrypoint.
+Deployment is automatic via `.github/workflows/deploy.yml` on every push to `main`: it builds with `pnpm exec vite build` and publishes `dist/public` through GitHub's official Pages Actions. Make sure the repo's Settings → Pages → Source is set to **GitHub Actions**.
 
-## Architecture note
+The production build is served from `https://<user>.github.io/brightEV/`, so `vite.config.ts` sets `base: "/brightEV/"` for the `build` command (dev keeps `/`). If the repo is ever renamed or moved to a custom domain, update that `base` value (and add a `CNAME` file for a custom domain).
 
-The page is still a static React+Babel setup, so it can be iterated on without a build step. The asset base is centralized through `window.BrightEVAssetBase` and `window.BrightEVAssetBaseImages`, which keeps the same code working from the root or from the nested demo path.
+## Content accuracy
+
+Every business fact and product spec in `client/src/data/site.ts` was checked against a live source (brightevgolfcarts.com, brightev.com, drivecoala.com) as of the date noted in that file's header comment. Anything that couldn't be verified is marked `verified: false` with a `note` explaining what's still unconfirmed — check those before removing the "to confirm" UI notes.

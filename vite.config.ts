@@ -205,7 +205,10 @@ function vitePluginStorageProxy(): Plugin {
 
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  // GitHub Pages serves this repo at https://<user>.github.io/brightEV/, so
+  // production builds need the /brightEV/ base; local dev keeps root-relative paths.
+  base: command === "build" ? "/brightEV/" : "/",
   plugins,
   resolve: {
     alias: {
@@ -238,4 +241,4 @@ export default defineConfig({
       deny: ["**/.*"],
     },
   },
-});
+}));
