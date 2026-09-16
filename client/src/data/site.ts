@@ -81,7 +81,7 @@ export const COALA_BRAND_WARRANTY =
 export const STREET_LEGAL_CATEGORIES: CartCategoryCopy[] = [
   {
     slug: "2-seater",
-    photoSlugs: ["2-seat", "2-plus-2"],
+    photoSlugs: ["2-seat"],
     id: "2-seater",
     eyebrow: "Street legal",
     title: "2 Seater",
@@ -95,16 +95,16 @@ export const STREET_LEGAL_CATEGORIES: CartCategoryCopy[] = [
   },
   {
     slug: "4-seater",
-    photoSlugs: ["4-seater"],
+    photoSlugs: ["4-seater", "2-plus-2"],
     id: "4-seater",
     eyebrow: "Street legal",
     title: "4 Seater",
     titleEm: "carts.",
     description:
-      "The Coala Cruzer and Coala Coast — both 4-passenger, street-legal low-speed vehicles built on a 51V lithium platform, confirmed directly from drivecoala.com.",
+      "The Coala Cruzer and Coala Coast — both 4-passenger, street-legal low-speed vehicles built on a 51V lithium platform, confirmed directly from drivecoala.com. Available in an all-forward-facing layout or a 2+2 configuration with a rear flip bench.",
     specs: [
       { label: "Models", value: "Coala Cruzer · Coala Coast" },
-      { label: "Seating", value: "4 forward-facing passengers" },
+      { label: "Seating", value: "4 passengers — forward-facing or 2+2 rear bench" },
       { label: "Battery", value: "51V 150Ah lithium-ion, 10-year cell warranty" },
       { label: "Motor", value: "5kW / 6.3–6.5kW motor, 400Amp AC controller" },
       { label: "Range", value: "Approx. 50–60 miles per charge" },
