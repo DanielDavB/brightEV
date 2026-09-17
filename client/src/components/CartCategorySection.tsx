@@ -37,7 +37,7 @@ export default function CartCategorySection({ category }: CartCategorySectionPro
       <div className="category-body">
         <div className="photo-grid">
           {photos.map((src) => (
-            <img key={src} src={withBase(src)} alt={`${category.title} Coala golf cart`} loading="lazy" />
+            <img key={src} src={withBase(src)} alt={`${category.title} Coala golf cart`} loading="lazy" decoding="async" />
           ))}
         </div>
         <div>

@@ -12,7 +12,7 @@ interface PageBannerProps {
 export default function PageBanner({ eyebrow, title, description, image, children }: PageBannerProps) {
   return (
     <section className="page-banner">
-      <img src={withBase(image)} alt="" aria-hidden="true" />
+      <img src={withBase(image)} alt="" aria-hidden="true" fetchPriority="high" decoding="async" />
       <div className="page-banner-copy reveal">
         <p className="eyebrow">
           <span className="eyebrow-line" /> {eyebrow}

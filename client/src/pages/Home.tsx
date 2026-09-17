@@ -115,7 +115,7 @@ export default function Home() {
         </div>
         <div className="hero-visual reveal reveal-delay-2">
           <div className="hero-image-wrap">
-            <img data-parallax="hero" src={heroImage} alt="Electric golf cart cruising a California coastal road at sunset" />
+            <img data-parallax="hero" src={heroImage} alt="Electric golf cart cruising a California coastal road at sunset" fetchPriority="high" decoding="async" />
             <div className="hero-image-overlay" />
           </div>
           <div className="hero-stamp"><span>Locally</span><strong>owned</strong><span>+ operated</span></div>
@@ -160,7 +160,7 @@ export default function Home() {
         <div className="inventory-grid" data-animate="fade-in-stagger">
           {carts.map((cart, index) => (
             <article className={`inventory-card reveal reveal-delay-${(index % 3) + 1}`} key={cart.id}>
-              <div className="inventory-image"><img src={withBase(cart.image)} alt={cart.name} loading="lazy" /><span>{cart.eyebrow}</span></div>
+              <div className="inventory-image"><img src={withBase(cart.image)} alt={cart.name} loading="lazy" decoding="async" /><span>{cart.eyebrow}</span></div>
               <div className="inventory-card-copy"><div><h3>{cart.name}</h3><p>{cart.capacity} · {cart.range}</p></div><strong>{cart.price}</strong></div>
               <div className="inventory-specs">{cart.specs?.map((spec) => <span key={spec}>{spec}</span>)}</div>
               <div className="inventory-card-actions"><Link href="/street-legal#4-seater">Full specs <ArrowUpRight size={14} /></Link></div>
@@ -171,7 +171,7 @@ export default function Home() {
 
       <section className="experience-section" id="experience">
         <div className="experience-image reveal">
-          <img data-parallax="section" src={lifestyleImage} alt="Family enjoying an electric golf cart near San Diego" />
+          <img data-parallax="section" src={lifestyleImage} alt="Family enjoying an electric golf cart near San Diego" loading="lazy" decoding="async" />
           <div className="image-note"><span>Made for</span><strong>the good days</strong></div>
         </div>
         <div className="experience-copy reveal reveal-delay-2">
@@ -195,15 +195,15 @@ export default function Home() {
           <div className="story-stage" data-active="0">
             <div className="story-stage-glow" />
             <div className="story-scene story-scene-0">
-              <img data-parallax="story" src={heroImage} alt="Bright EV golf cart ready for a coastal drive" />
+              <img data-parallax="story" src={heroImage} alt="Bright EV golf cart ready for a coastal drive" loading="lazy" decoding="async" />
               <span className="scene-label">01 / Ready when you are</span>
             </div>
             <div className="story-scene story-scene-1">
-              <img data-parallax="story" src={storyBatteryImage} alt="Bright EV lithium battery pack" />
+              <img data-parallax="story" src={storyBatteryImage} alt="Bright EV lithium battery pack" loading="lazy" decoding="async" />
               <span className="scene-label">02 / Built to last</span>
             </div>
             <div className="story-scene story-scene-2">
-              <img data-parallax="story" src={storyServiceImage} alt="Bright EV technician servicing an electric golf cart" />
+              <img data-parallax="story" src={storyServiceImage} alt="Bright EV technician servicing an electric golf cart" loading="lazy" decoding="async" />
               <span className="scene-label">03 / Keep the good going</span>
             </div>
             <div className="story-progress"><span /></div>
