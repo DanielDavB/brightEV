@@ -13,6 +13,11 @@
  */
 
 export type CartPhotoManifest = Record<string, Record<string, string[]>>;
+export interface CartPhotoColor {
+  slug: string;
+  label: string;
+  photos: string[];
+}
 
 const manifestLoaders = import.meta.glob("../data/cart-photos.json");
 
@@ -37,22 +42,37 @@ export async function loadCartPhotoManifest(): Promise<CartPhotoManifest | null>
   return cachedManifest;
 }
 
+function formatColorLabel(colorSlug: string): string {
+  return colorSlug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+export function getCategoryColorOptions(
+  manifest: CartPhotoManifest | null,
+  categorySlugs: string[],
+): CartPhotoColor[] {
+  if (!manifest) return [];
+
+  const options: CartPhotoColor[] = [];
+  for (const slug of categorySlugs) {
+    const colors = manifest[slug];
+    if (!colors) continue;
+    for (const [colorSlug, photos] of Object.entries(colors)) {
+      options.push({ slug: colorSlug, label: formatColorLabel(colorSlug), photos });
+    }
+  }
+
+  return options;
+}
+
 /** Flatten every photo across the given manifest category slugs (all colors combined). */
 export function getCategoryPhotos(
   manifest: CartPhotoManifest | null,
   categorySlugs: string[],
   fallback: string[],
 ): string[] {
-  if (!manifest) return fallback;
-
-  const photos: string[] = [];
-  for (const slug of categorySlugs) {
-    const colors = manifest[slug];
-    if (!colors) continue;
-    for (const colorKey of Object.keys(colors)) {
-      photos.push(...colors[colorKey]);
-    }
-  }
-
+  const photos = getCategoryColorOptions(manifest, categorySlugs).flatMap((option) => option.photos);
   return photos.length ? photos : fallback;
 }

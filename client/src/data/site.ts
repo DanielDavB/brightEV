@@ -1,14 +1,13 @@
 /**
  * Bright EV Golf Carts — real business + product content
  *
- * Every value here was checked against a live source on 2026-09-15:
+ * Every value here was checked against a live source on 2026-09-17:
  *  - https://brightevgolfcarts.com/  (the current real Bright EV Golf Carts site — contact info, tone)
  *  - https://brightev.com/golf-cart-parts-and-service/  (the real service page we link out to)
- *  - https://drivecoala.com/  (the Coala brand site — the only inventory brand in scope)
+ *  - https://brightev.com/vehicles-coala-golf-carts/ and its product pages (Coala inventory and specs)
  *
- * Where the source material did not expose a specific number (a model name, a price,
- * an exact spec) we intentionally use honest generic phrasing instead of inventing one.
- * Those spots are marked `verified: false` and flagged in the UI with a short note.
+ * Where the source material does not expose a specific number, we intentionally use
+ * honest generic phrasing instead of inventing one.
  */
 
 export const CONTACT = {
@@ -45,6 +44,7 @@ export const NAV_ITEMS: NavItem[] = [
     href: "/street-legal",
     children: [
       { label: "2 Seater", href: "/street-legal#2-seater" },
+      { label: "2+2 Seater", href: "/street-legal#2-plus-2" },
       { label: "4 Seater", href: "/street-legal#4-seater" },
       { label: "4+2 Seater", href: "/street-legal#4-plus-2" },
     ],
@@ -87,15 +87,47 @@ export const STREET_LEGAL_CATEGORIES: CartCategoryCopy[] = [
     title: "2 Seater",
     titleEm: "carts.",
     description:
-      "A compact, street-legal Coala for two — the easiest way to swap a short car trip for an electric one around the neighborhood or the boardwalk.",
-    specs: [],
-    verified: false,
-    note: "Coala's public model pages (drivecoala.com) currently detail the 4-passenger Cruzer and Coast only — a named 2-seat model and its exact specs were not confirmed. Ask our team for current availability.",
+      "The Coala 2 is a compact two-passenger electric cart with modern styling, responsive everyday driving, and a footprint that is easy to maneuver around neighborhoods, communities, resorts, and recreational spaces.",
+    specs: [
+      { label: "Seating", value: "2 passengers" },
+      { label: "Motor", value: "48V 6.5kW AC motor, 8 HP" },
+      { label: "Battery", value: "48V 105Ah lithium" },
+      { label: "Range", value: "37-49 miles" },
+      { label: "Speed", value: "12-25 mph" },
+      { label: "Dimensions", value: "94 x 56 x 82 in" },
+      { label: "Suspension", value: "Double wishbone independent front suspension" },
+      { label: "Brakes", value: "Four-wheel hydraulic disc brakes" },
+    ],
+    verified: true,
+    note: "Bright EV lists the Coala 2 as a street-legal electric cart with automotive paint, electromagnetic parking brake, 30% gradeability, and 3.9-5.9 in of ground clearance.",
+    fallbackImage: "/hero-fleet.jpg",
+  },
+  {
+    slug: "2-plus-2",
+    photoSlugs: ["2-plus-2"],
+    id: "2-plus-2",
+    eyebrow: "Street legal",
+    title: "2+2 Seater",
+    titleEm: "carts.",
+    description:
+      "The Coala 2+2 combines a compact footprint with two forward-facing seats and a rear-facing seat, giving up to four passengers a comfortable, easy-to-maneuver electric ride.",
+    specs: [
+      { label: "Seating", value: "2+2 seating, up to 4 passengers" },
+      { label: "Motor", value: "48V 6.5kW AC motor, 8 HP" },
+      { label: "Battery", value: "48V 105Ah lithium" },
+      { label: "Range", value: "37-49 miles" },
+      { label: "Speed", value: "12-25 mph" },
+      { label: "Dimensions", value: "119 x 56 x 82 in" },
+      { label: "Suspension", value: "Double wishbone independent front suspension" },
+      { label: "Brakes", value: "Four-wheel hydraulic disc brakes" },
+    ],
+    verified: true,
+    note: "Bright EV lists the Coala 2+2 with automotive paint, electromagnetic parking brake, 30% gradeability, and 3.9-5.9 in of ground clearance.",
     fallbackImage: "/hero-fleet.jpg",
   },
   {
     slug: "4-seater",
-    photoSlugs: ["4-seater", "2-plus-2"],
+    photoSlugs: ["4-seater"],
     id: "4-seater",
     eyebrow: "Street legal",
     title: "4 Seater",
@@ -103,15 +135,17 @@ export const STREET_LEGAL_CATEGORIES: CartCategoryCopy[] = [
     description:
       "The Coala 4 Golf Cart offers comfortable seating for 4 passengers with a clean, modern design and premium electric performance. Its four forward-facing seats make it a practical choice for families, communities, resorts, and recreational driving.",
     specs: [
-      { label: "Seating", value: "4 passengers — four forward-facing seats" },
-      { label: "Motor", value: "48V 6.5kW AC motor, up to 25 mph" },
+      { label: "Seating", value: "4 passengers - four forward-facing seats" },
+      { label: "Motor", value: "48V 6.5kW AC motor, 8 HP" },
       { label: "Battery", value: "48V 150Ah lithium" },
+      { label: "Range", value: "37-49 miles" },
+      { label: "Speed", value: "12-25 mph" },
+      { label: "Dimensions", value: "119 x 56 x 82 in" },
       { label: "Suspension", value: "Double wishbone independent front suspension" },
       { label: "Brakes", value: "Four-wheel hydraulic disc brakes" },
-      { label: "Use", value: "Families, communities, resorts, and recreation" },
     ],
     verified: true,
-    note: "Bright EV describes the Coala 4 as a premium four-passenger golf cart with smooth electric performance and refined everyday control.",
+    note: "Bright EV lists the Coala 4 with automotive paint, electromagnetic parking brake, 30% gradeability, and 3.9-5.9 in of ground clearance.",
     fallbackImage: "/hero-fleet.jpg",
   },
   {
@@ -124,15 +158,17 @@ export const STREET_LEGAL_CATEGORIES: CartCategoryCopy[] = [
     description:
       "The Coala 4+2 is built for larger groups, with four forward-facing seats plus a rear-facing seat. Its longer body brings added passenger capacity while maintaining the modern styling and premium feel of the Coala lineup.",
     specs: [
-      { label: "Seating", value: "Up to 6 passengers — four forward-facing plus rear-facing seat" },
-      { label: "Motor", value: "48V 6.5kW AC motor, up to 25 mph" },
+      { label: "Seating", value: "Up to 6 passengers - 4 forward-facing + 2 rear-facing" },
+      { label: "Motor", value: "48V 6.5kW AC motor, 8 HP" },
       { label: "Battery", value: "48V 150Ah lithium" },
+      { label: "Range", value: "37-49 miles" },
+      { label: "Speed", value: "12-25 mph" },
+      { label: "Dimensions", value: "149 x 56 x 82 in" },
       { label: "Suspension", value: "Double wishbone independent front suspension" },
       { label: "Brakes", value: "Four-wheel hydraulic disc brakes" },
-      { label: "Use", value: "Neighborhoods, resorts, campuses, and recreation" },
     ],
     verified: true,
-    note: "Bright EV describes the Coala 4+2 as a larger-group golf cart with smooth electric performance, premium styling, and added passenger capacity.",
+    note: "Bright EV lists the Coala 4+2 with automotive paint, electromagnetic parking brake, 30% gradeability, and 3.9-5.9 in of ground clearance.",
     fallbackImage: "/hero-fleet.jpg",
   },
 ];
@@ -146,10 +182,19 @@ export const COMMERCIAL_CATEGORIES: CartCategoryCopy[] = [
     title: "Utility",
     titleEm: "carts.",
     description:
-      "Work-ready electric carts for property, hospitality, and campus use — built for hauling, not just cruising.",
-    specs: [],
-    verified: false,
-    note: "Coala's own utility/commercial line was not confirmed on drivecoala.com (their utility ATV line is marketed under a separate, non-Coala brand). Since this redesign only carries genuine Coala inventory, treat this section as a placeholder until Bright EV confirms a Coala-branded utility model.",
+      "The Coala 2 Utility combines two-passenger seating with a rear cargo bed for commercial properties, resorts, campuses, maintenance teams, and everyday hauling.",
+    specs: [
+      { label: "Seating", value: "2 passengers" },
+      { label: "Motor", value: "48V 6.5kW AC motor, 8 HP" },
+      { label: "Battery", value: "48V 105Ah lithium" },
+      { label: "Range", value: "37-49 miles" },
+      { label: "Speed", value: "12-25 mph" },
+      { label: "Cargo bed", value: "39 x 51 in or 63 x 73 in" },
+      { label: "Suspension", value: "Double wishbone independent front suspension" },
+      { label: "Brakes", value: "Four-wheel hydraulic disc brakes" },
+    ],
+    verified: true,
+    note: "Bright EV lists the Coala 2 Utility with automotive paint, electromagnetic parking brake, 30% gradeability, and 3.9-5.9 in of ground clearance.",
     fallbackImage: "/banner-service.jpg",
   },
 ];
