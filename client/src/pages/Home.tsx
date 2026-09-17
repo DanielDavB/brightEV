@@ -18,8 +18,8 @@ import { withBase } from "@/lib/url";
 import { initScrollAnimations } from "../lib/animations";
 import { fallbackCarts, getCartInventory } from "../lib/api";
 
-const heroImage = withBase("/hero-fleet.jpg");
-const lifestyleImage = withBase("/hero-fleet.jpg");
+const heroImage = withBase("/hero-background.jpg");
+const lifestyleImage = withBase("/good-days.jpg");
 const storyServiceImage = withBase("/banner-service.jpg");
 const storyBatteryImage = withBase("/banner-lithium.jpg");
 

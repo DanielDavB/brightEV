@@ -12,30 +12,30 @@
  * current pricing" is used instead of an invented number.
  */
 
-const CACHE_KEY = "bright-ev-cart-inventory-v1";
+const CACHE_KEY = "bright-ev-cart-inventory-v4";
 const CACHE_TTL = 15 * 60 * 1000;
 const API_URL = import.meta.env.VITE_DRIVECO_API_URL || "";
 
 export const fallbackCarts = [
   {
     id: "coala-cruzer",
-    name: "Coala Cruzer",
-    eyebrow: "4 passenger · street legal",
-    image: "/hero-fleet.jpg",
-    capacity: "4 passengers",
-    range: "50–60 mile range",
+    name: "Coala 4+2",
+    eyebrow: "6 passenger · electric golf cart",
+    image: "/coala-4-2.jpg",
+    capacity: "Up to 6 passengers",
+    range: "Up to 25 mph",
     price: "Call for current pricing",
-    specs: ["51V lithium battery", "10.1 in touch display", "14 in wheels"],
+    specs: ["48V 150Ah lithium battery", "48V 6.5kW AC motor", "4 forward + rear-facing seats"],
   },
   {
-    id: "coala-coast",
-    name: "Coala Coast",
-    eyebrow: "4 passenger · street legal",
-    image: "/hero-fleet.jpg",
+    id: "coala-4",
+    name: "Coala 4",
+    eyebrow: "4 passenger · electric golf cart",
+    image: "/coala-4.jpg",
     capacity: "4 passengers",
-    range: "50–60 mile range",
+    range: "Up to 25 mph",
     price: "Call for current pricing",
-    specs: ["5kW / 6.3kW motor", "Backup camera", "Premium plush seating"],
+    specs: ["48V 150Ah lithium battery", "48V 6.5kW AC motor", "4 forward-facing seats"],
   },
 ];
 

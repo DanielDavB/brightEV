@@ -27,9 +27,9 @@ export default function SiteHeader() {
       <a className="floating-quote" href="tel:+18582224915" aria-label="Call Bright EV">
         <span className="floating-quote-pulse" aria-hidden="true" />
         <span>
-          Solicitar
+          Request a
           <br />
-          cotización
+          quote
         </span>
         <ArrowUpRight size={16} />
       </a>
