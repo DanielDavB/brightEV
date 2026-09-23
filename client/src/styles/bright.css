@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Oswald:wght@500;600;700&display=swap');
 
 /* ==========================================================================
    Bright EV — 2026 home layout
@@ -9,6 +8,7 @@
   --gold: #cf9a35;
   --gold-bright: #e4b457;
   --gold-soft: rgba(207, 154, 53, 0.14);
+  --gold-ink: #86621f;
   --black: #0e0e0e;
   --dark: #1b1b1b;
   --dark-2: #1f1f1f;
@@ -198,9 +198,9 @@
 }
 .bh-logo-sub {
   color: rgba(214, 190, 150, 0.78);
-  font-size: 8.5px;
+  font-size: 9.5px;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   line-height: 1;
 }
 .bh-nav { display: flex; align-items: center; gap: clamp(18px, 2.2vw, 34px); margin-left: clamp(16px, 3vw, 46px); }
@@ -221,6 +221,39 @@
 .bh-nav a:hover { color: var(--gold-bright); }
 .bh-nav a.is-active { color: var(--gold); }
 .bh-nav svg { opacity: 0.8; }
+.bh-nav-item { position: relative; }
+.bh-dropdown {
+  position: absolute;
+  top: 100%;
+  left: -18px;
+  z-index: 50;
+  padding-top: 24px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+}
+.bh-nav-item:hover .bh-dropdown,
+.bh-nav-item:focus-within .bh-dropdown { opacity: 1; visibility: visible; transform: none; }
+.bh-dropdown-panel {
+  display: grid;
+  min-width: 210px;
+  padding: 8px 0;
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 2px solid var(--gold);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+.bh-dropdown-panel a {
+  display: block;
+  padding: 11px 18px;
+  color: #e8e4de;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+.bh-dropdown-panel a:hover { background: rgba(255, 255, 255, 0.05); color: var(--gold-bright); }
 .bh-header-tools { display: flex; align-items: center; gap: 20px; margin-left: auto; }
 .bh-icon-btn {
   display: grid;
@@ -289,9 +322,9 @@
   background: rgba(20, 18, 16, 0.55);
   color: rgba(255, 255, 255, 0.86);
   font-family: 'Oswald', sans-serif;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 .bh-hero-badge svg { color: var(--gold); }
@@ -364,7 +397,7 @@
   display: block;
   color: var(--gold);
   font-family: 'Oswald', sans-serif;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.26em;
   text-transform: uppercase;
@@ -395,7 +428,7 @@
   background: var(--gold-soft);
   color: var(--gold);
 }
-.bh-promo h3 {
+.bh-promo h2 {
   margin: 0;
   color: #fff;
   font-family: 'Playfair Display', serif;
@@ -426,14 +459,14 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
-.bh-photo-card-foot span:first-child { color: #86817a; }
-.bh-photo-card-foot span:last-child { color: var(--gold); }
+.bh-photo-card-foot span:first-child { color: #6b665f; }
+.bh-photo-card-foot span:last-child { color: var(--gold-ink); }
 .bh-intro-copy .bh-display { margin-top: 16px; font-size: clamp(34px, 4.2vw, 56px); color: var(--ink); }
 .bh-intro-copy > p:not(.bh-eyebrow) { max-width: 560px; margin: 22px 0 0; color: var(--body-light); font-size: 14px; line-height: 1.85; }
 .bh-mini-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 30px 0 30px; }
 .bh-mini-card { padding: 20px 18px 22px; background: var(--white); border: 1px solid var(--line-light); }
 .bh-mini-card svg { color: var(--gold); }
-.bh-mini-card h4 {
+.bh-mini-card h3 {
   margin: 14px 0 8px;
   color: var(--ink);
   font-family: 'Oswald', sans-serif;
@@ -461,7 +494,7 @@
   left: 14px;
   color: rgba(255, 255, 255, 0.92);
   font-family: 'Oswald', sans-serif;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -491,7 +524,7 @@
   background: var(--gold-soft);
   color: var(--gold);
 }
-.bh-feature-card h4 {
+.bh-feature-card h3 {
   margin: 0 0 9px;
   color: #fff;
   font-family: 'Oswald', sans-serif;
@@ -596,7 +629,7 @@
 .bh-badge {
   padding: 6px 12px;
   font-family: 'Oswald', sans-serif;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -627,7 +660,7 @@
   margin-bottom: 12px;
   color: var(--gold);
   font-family: 'Oswald', sans-serif;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -659,7 +692,7 @@
   background: rgba(14, 14, 14, 0.82);
   color: #fff;
   font-family: 'Oswald', sans-serif;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -734,7 +767,7 @@
   font-size: 11px;
   font-weight: 600;
 }
-.bh-step h4 {
+.bh-step h3 {
   margin: 0 0 5px;
   color: var(--ink);
   font-family: 'Oswald', sans-serif;
@@ -757,7 +790,7 @@
   background: rgba(255, 255, 255, 0.05);
   color: var(--gold);
 }
-.bh-why-item h4 {
+.bh-why-item h3 {
   margin: 0 0 10px;
   color: #fff;
   font-family: 'Oswald', sans-serif;
@@ -788,7 +821,7 @@
   background: radial-gradient(ellipse at 50% 55%, transparent 34%, rgba(255, 255, 255, 0.74) 70%, #fff 96%);
 }
 .bh-brand img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
-.bh-brand h4 {
+.bh-brand h3 {
   margin: 18px 0 8px;
   color: #fff;
   font-family: 'Oswald', sans-serif;
@@ -811,7 +844,7 @@
   background: linear-gradient(100deg, rgba(14, 14, 14, 0.97) 0%, rgba(14, 14, 14, 0.9) 42%, rgba(14, 14, 14, 0.5) 78%, rgba(14, 14, 14, 0.35) 100%);
 }
 .bh-support-body { position: relative; z-index: 2; }
-.bh-support-body h3 {
+.bh-support-body h2 {
   max-width: 420px;
   margin: 16px 0 0;
   color: #fff;
@@ -828,7 +861,7 @@
   background: rgba(255, 255, 255, 0.07);
   color: rgba(255, 255, 255, 0.82);
   font-family: 'Oswald', sans-serif;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -889,9 +922,9 @@
   background: rgba(14, 14, 14, 0.88);
   color: #fff;
   font-family: 'Oswald', sans-serif;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 .bh-map-label svg { width: 13px; height: 13px; color: var(--gold); }
@@ -915,7 +948,7 @@
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 .bh-socials a:hover { border-color: var(--gold); background: var(--gold); color: #17140c; }
-.bh-footer-col h4 {
+.bh-footer-col h2 {
   margin: 4px 0 22px;
   color: var(--gold);
   font-size: 13px;
@@ -942,9 +975,50 @@
 .bh-footer-meta svg { color: var(--gold); }
 
 /* --- responsive ----------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .bh-nav { display: none; }
+  .bh-burger {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border: 0;
+    background: transparent;
+    color: #fff;
+  }
+  .bh-mobile-nav {
+    display: grid;
+    max-height: calc(100vh - 92px);
+    overflow-y: auto;
+    padding: 8px 24px 22px;
+    background: #141414;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  .bh-mobile-nav a {
+    display: block;
+    padding: 14px 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .bh-mobile-nav a.is-active { color: var(--gold); }
+  .bh-mobile-sub { display: grid; padding: 4px 0 8px 14px; }
+  .bh-mobile-sub a {
+    padding: 10px 4px;
+    border-bottom: 0;
+    color: #cfcac4;
+    font-size: 14.5px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+}
+
 @media (max-width: 1180px) {
-  .bh-nav { gap: 18px; }
-  .bh-nav a { font-size: 11px; letter-spacing: 0.1em; }
   .bh-detail-tiles { grid-template-columns: repeat(3, 1fr); }
   .bh-why-grid { grid-template-columns: repeat(3, 1fr); row-gap: 40px; }
   .bh-brands { grid-template-columns: repeat(3, 1fr); }
@@ -953,35 +1027,9 @@
 
 @media (max-width: 980px) {
   .bh-header-inner { gap: 16px; height: 68px; padding: 0 18px; }
-  .bh-nav,
   .bh-header-phone { display: none; }
   .bh-header-cta { min-height: 40px; padding: 8px 16px; font-size: 12px; }
-  .bh-burger {
-    display: grid;
-    place-items: center;
-    width: 40px;
-    height: 40px;
-    border: 0;
-    background: transparent;
-    color: #fff;
-  }
-  .bh-mobile-nav {
-    display: grid;
-    gap: 2px;
-    padding: 12px 18px 22px;
-    background: #141414;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
-  }
-  .bh-mobile-nav a {
-    padding: 14px 4px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    color: #fff;
-    font-family: 'Oswald', sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.14em;
-    text-decoration: none;
-    text-transform: uppercase;
-  }
+  .bh-mobile-nav { max-height: calc(100vh - 68px); padding: 8px 18px 22px; }
   .bh-hero-card { position: static; justify-content: space-between; width: 100%; }
   .bh-hero-inner { padding-bottom: 60px; }
   .bh-intro-grid,
@@ -1008,11 +1056,17 @@
   .bh-promo .bh-btn { margin-left: 0; width: 100%; }
   .bh-hero-card { flex-wrap: wrap; gap: 18px; padding: 18px 22px; }
   .bh-detail-tiles,
-  .bh-mini-cards,
-  .bh-finance-tiles,
   .bh-brands,
   .bh-why-grid,
   .bh-gallery { grid-template-columns: 1fr 1fr; }
+  .bh-mini-cards { grid-template-columns: 1fr; }
+  .bh-finance-tile { padding: 14px 6px; }
+  .bh-tabs { flex-wrap: nowrap; justify-content: flex-start; width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .bh-tab { flex: none; padding: 12px 18px; }
+  .bh-price-box { flex-direction: column; gap: 14px; }
+  .bh-hero-media::after {
+    background: linear-gradient(180deg, rgba(12, 11, 10, 0.74) 0%, rgba(12, 11, 10, 0.84) 60%, rgba(12, 11, 10, 0.92) 100%);
+  }
   .bh-why-grid { text-align: left; }
   .bh-why-icon { margin-left: 0; }
   .bh-why-item p { margin-left: 0; }
@@ -1031,3 +1085,26 @@
   .bh-hero h1 { font-size: 11.2vw; }
   .bh-hero-facts { gap: 16px 24px; }
 }
+
+/* anchored sections clear the sticky header */
+.bh-page [id] { scroll-margin-top: 104px; }
+@media (max-width: 980px) { .bh-page [id] { scroll-margin-top: 80px; } }
+
+/* Gold text on light surfaces uses a deeper tone to keep WCAG AA contrast. */
+.bh-section-light .bh-eyebrow,
+.bh-card-light .bh-eyebrow,
+.bh-section-light .bh-link-gold,
+.sl-light .bx-eyebrow,
+.sl-card-price,
+.cm-solutions .bx-eyebrow,
+.cm-vehicles .bx-eyebrow,
+.pg-light .bx-eyebrow,
+.pg-light .pg-step strong,
+.pg-card:not(.pg-card-dark) .pg-link { color: var(--gold-ink); }
+.cm-solutions .bx-btn-gold-outline,
+.cm-vehicles .bx-btn-gold-outline,
+.pg-light .bx-btn-gold-outline { border-color: var(--gold-ink); color: var(--gold-ink); }
+.cm-solutions .bx-btn-gold-outline:hover,
+.cm-vehicles .bx-btn-gold-outline:hover,
+.pg-light .bx-btn-gold-outline:hover { background: var(--gold-ink); color: #fff; }
+.bh-card-light .bh-delivery-banner .bh-eyebrow { color: var(--gold); }

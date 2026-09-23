@@ -17,10 +17,10 @@ import {
   Warehouse,
   Wrench,
 } from "lucide-react";
-import { Link } from "wouter";
 import BrightFooter from "@/components/BrightFooter";
 import BrightHeader from "@/components/BrightHeader";
-import { CONTACT, SERVICE_NETWORK_PHONE, SERVICE_NETWORK_PHONE_HREF } from "@/data/site";
+import { CONTACT, SERVICE_NETWORK_PHONE, SERVICE_NETWORK_PHONE_HREF, coalaModel } from "@/data/site";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { withBase } from "@/lib/url";
 import "@/styles/bright.css";
 import "@/styles/bright-commercial.css";
@@ -74,13 +74,12 @@ const ENVIRONMENTS = [
 ];
 
 const VEHICLES = [
-  { name: "Coala Pro", text: "Utility & hauling", image: "cm-veh-pro.jpg" },
-  { name: "Coala Transporter 6", text: "Passenger transport", image: "cm-veh-transporter.jpg" },
-  { name: "Coala Cargo XL", text: "Heavy-duty hauling", image: "cm-veh-cargo.jpg" },
-  { name: "Coala Crew 6", text: "Team transportation", image: "cm-veh-crew.jpg" },
-  { name: "Coala Ambulance", text: "Medical & safety", image: "cm-veh-ambulance.jpg" },
-  { name: "Coala Shuttle 8", text: "High-capacity transport", image: "cm-veh-shuttle.jpg" },
-];
+  { slug: "coala-2-utility", use: "Maintenance, grounds & hauling" },
+  { slug: "coala-4-2", use: "Guest shuttles for up to 6" },
+  { slug: "coala-4", use: "Staff & guest transport" },
+  { slug: "coala-2-2", use: "Security & patrol routes" },
+  { slug: "coala-2", use: "Campus & facility runs" },
+].map((vehicle) => ({ ...coalaModel(vehicle.slug), use: vehicle.use }));
 
 const WHY = [
   {
@@ -97,7 +96,26 @@ const BUSINESS_TYPES = ["Resort", "Hotel", "Campus", "Community / HOA", "Commerc
 const FLEET_SIZES = ["1-2 vehicles", "3-5 vehicles", "6-10 vehicles", "11-25 vehicles", "25+ vehicles"];
 const TIMELINES = ["Immediately", "1-3 months", "3-6 months", "Still researching"];
 
+function submitFleetRequest(event: React.FormEvent<HTMLFormElement>) {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  const field = (name: string) => String(data.get(name) ?? "").trim() || "—";
+  const body = [
+    `Business type: ${field("business")}`,
+    `Number of vehicles: ${field("count")}`,
+    `Location: ${field("location")}`,
+    `Purchase timeline: ${field("timeline")}`,
+    "",
+    "Intended use:",
+    field("use"),
+  ].join("\n");
+  const subject = `Fleet inquiry — ${field("business")}`;
+  window.location.href = `${CONTACT.emailHref}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 export default function Commercial() {
+  usePageTitle("Commercial & Fleet Carts");
+
   return (
     <div className="bh-page cm-page">
       <BrightHeader active="Commercial" />
@@ -120,7 +138,7 @@ export default function Commercial() {
               return (
                 <article className="cm-hero-feature" key={feature.title}>
                   <Icon size={30} strokeWidth={1.2} />
-                  <h3>{feature.title}</h3>
+                  <strong>{feature.title}</strong>
                   <p>{feature.text}</p>
                 </article>
               );
@@ -166,9 +184,9 @@ export default function Commercial() {
               })}
             </div>
             <div className="cm-solutions-action">
-              <Link className="bx-btn bx-btn-gold-outline" href="/commercial#vehicles">
+              <a className="bx-btn bx-btn-gold-outline" href="#vehicles">
                 Explore commercial vehicles
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -184,14 +202,11 @@ export default function Commercial() {
               </p>
             </div>
             <form
-              onSubmit={(event) => {
-                event.preventDefault();
-                window.location.href = CONTACT.emailHref;
-              }}
+              onSubmit={submitFleetRequest}
             >
               <div className="cm-field cm-select">
                 <label htmlFor="cm-business">Business type</label>
-                <select id="cm-business" defaultValue="">
+                <select id="cm-business" name="business" defaultValue="" required>
                   <option value="" disabled>
                     Select business type
                   </option>
@@ -203,7 +218,7 @@ export default function Commercial() {
               </div>
               <div className="cm-field cm-select">
                 <label htmlFor="cm-count">Number of vehicles</label>
-                <select id="cm-count" defaultValue="">
+                <select id="cm-count" name="count" defaultValue="" required>
                   <option value="" disabled>
                     Select number of vehicles
                   </option>
@@ -215,15 +230,15 @@ export default function Commercial() {
               </div>
               <div className="cm-field">
                 <label htmlFor="cm-location">Location</label>
-                <input id="cm-location" type="text" placeholder="City, State or Zip Code" />
+                <input id="cm-location" name="location" type="text" placeholder="City, State or Zip Code" autoComplete="postal-code" />
               </div>
               <div className="cm-field">
                 <label htmlFor="cm-use">Intended use</label>
-                <textarea id="cm-use" placeholder="Describe how you plan to use the vehicles" />
+                <textarea id="cm-use" name="use" placeholder="Describe how you plan to use the vehicles" />
               </div>
               <div className="cm-field cm-select">
                 <label htmlFor="cm-timeline">Purchase timeline</label>
-                <select id="cm-timeline" defaultValue="">
+                <select id="cm-timeline" name="timeline" defaultValue="">
                   <option value="" disabled>
                     Select timeline
                   </option>
@@ -277,16 +292,17 @@ export default function Commercial() {
           </div>
           <div className="cm-vehicle-grid">
             {VEHICLES.map((vehicle) => (
-              <article className="cm-vehicle" key={vehicle.name}>
-                <img src={img(vehicle.image)} alt={vehicle.name} loading="lazy" />
+              <article className="cm-vehicle" key={vehicle.slug}>
+                <img src={withBase(vehicle.image)} alt={vehicle.name} loading="lazy" />
                 <h3>{vehicle.name}</h3>
-                <p>{vehicle.text}</p>
+                <p>{vehicle.use}</p>
+                <p className="cm-vehicle-spec">{vehicle.seatsLabel}</p>
               </article>
             ))}
           </div>
           <div className="cm-vehicles-action">
             <a className="bx-btn bx-btn-gold-outline" href="#fleet-form">
-              View all commercial vehicles
+              Get a fleet quote
             </a>
           </div>
         </div>

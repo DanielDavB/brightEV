@@ -128,8 +128,8 @@
 .sl-view-all:hover { color: var(--gold); }
 .sl-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 28px; }
 .sl-card { display: flex; flex-direction: column; background: #fbfaf9; border: 1px solid #e6e2dc; }
-.sl-card-media { position: relative; height: 240px; overflow: hidden; background: #eceae7; }
-.sl-card-media img { width: 100%; height: 100%; object-fit: cover; }
+.sl-card-media { position: relative; height: 240px; overflow: hidden; background: #efedea; }
+.sl-card-media img { width: 100%; height: 100%; object-fit: contain; }
 .sl-card-media span {
   position: absolute;
   top: 14px;
@@ -150,8 +150,8 @@
 .sl-card-specs span { display: flex; align-items: center; gap: 7px; }
 .sl-card-specs i { color: #bdb7ae; font-style: normal; }
 .sl-card-specs svg { color: #6b665f; }
-.sl-card-price { margin: 16px 0 0; color: var(--gold); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-.sl-card-amount { margin: 5px 0 16px; color: var(--ink); font-size: 27px; font-weight: 700; letter-spacing: -0.01em; }
+.sl-card-price { margin: 16px 0 0; color: var(--gold-ink); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.sl-card-amount { margin: 5px 0 6px; color: var(--ink); font-size: 27px; font-weight: 700; letter-spacing: -0.01em; }
 .sl-card .bx-btn-quiet { margin-top: auto; width: 100%; }
 
 /* --- places ---------------------------------------------------------------- */
@@ -257,4 +257,25 @@
   .sl-place > * { transform: none; }
   .sl-place-media img { width: 100%; margin-left: 0; }
   .sl-collection-head { flex-direction: column; align-items: flex-start; }
+}
+
+.sl-card-note { margin: 0 0 16px; color: #6b665f; font-size: 13px; }
+.sl-card-specs i { color: #6b665f; }
+
+@media (max-width: 680px) {
+  .sl-hero-media::after,
+  .sl-cta-media::after {
+    background: linear-gradient(180deg, rgba(10, 10, 10, 0.72) 0%, rgba(10, 10, 10, 0.86) 60%, rgba(10, 10, 10, 0.94) 100%);
+  }
+  .sl-places {
+    display: flex;
+    gap: 12px;
+    margin: 28px -28px 0;
+    padding: 0 28px 6px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .sl-place { flex: 0 0 78%; scroll-snap-align: start; }
+  .sl-place-media { height: 220px; }
 }

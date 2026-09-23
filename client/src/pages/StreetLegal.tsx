@@ -20,6 +20,8 @@ import {
 import { Link } from "wouter";
 import BrightFooter from "@/components/BrightFooter";
 import BrightHeader from "@/components/BrightHeader";
+import { COALA_MODELS, CONTACT } from "@/data/site";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { withBase } from "@/lib/url";
 import "@/styles/bright.css";
 import "@/styles/bright-street-legal.css";
@@ -68,37 +70,11 @@ const STRIP = [
   },
 ];
 
-const MODELS = [
-  {
-    name: "Cruiser 4S",
-    image: "sl-card-cruiser.jpg",
-    tagline: "Street-legal. Refined. Everyday adventure.",
-    seats: "4",
-    price: "$12,995",
-    featured: true,
-  },
-  {
-    name: "Premium 4",
-    image: "sl-card-premium.jpg",
-    tagline: "Spacious. Comfortable. Powerful.",
-    seats: "4",
-    price: "$11,995",
-  },
-  {
-    name: "i40L",
-    image: "sl-card-i40l.jpg",
-    tagline: "Lifted. Luxurious. Performance built.",
-    seats: "4",
-    price: "$12,995",
-  },
-  {
-    name: "Elite 4+2",
-    image: "sl-card-elite.jpg",
-    tagline: "Maximum comfort. Extra capacity.",
-    seats: "6",
-    price: "$16,995",
-  },
-];
+const MODELS = COALA_MODELS.filter((model) => model.layout !== "Utility");
+const FEATURED = "coala-4";
+
+const pricingHref = (name: string) =>
+  `${CONTACT.emailHref}?subject=${encodeURIComponent(`Pricing request: ${name}`)}`;
 
 const PLACES = [
   {
@@ -131,12 +107,14 @@ const PLACES = [
 ];
 
 const CTA_LIST = [
-  { icon: Wallet, title: "Financing available", text: "Flexible options for qualified buyers.", gold: true },
-  { icon: Truck, title: "Nationwide delivery", text: "We deliver your new cart straight to your door." },
+  { icon: Wallet, title: "Financing available", text: "0% interest for 24 months on approved credit.", gold: true },
+  { icon: Truck, title: "Nationwide delivery", text: "Delivery anywhere in the continental U.S." },
   { icon: Headphones, title: "Expert support", text: "Our team is here for you before and after the sale.", gold: true },
 ];
 
 export default function StreetLegal() {
+  usePageTitle("Street-Legal Coala Carts");
+
   return (
     <div className="bh-page sl-page">
       <BrightHeader active="Street-Legal" />
@@ -166,12 +144,12 @@ export default function StreetLegal() {
               })}
             </div>
             <div className="sl-hero-actions">
-              <Link className="bx-btn bx-btn-gold" href="/street-legal#collection">
+              <a className="bx-btn bx-btn-gold" href="#collection">
                 Shop street-legal
-              </Link>
-              <Link className="bx-btn bx-btn-outline" href="/street-legal#collection">
+              </a>
+              <a className="bx-btn bx-btn-outline" href="#collection">
                 View vehicles
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -257,39 +235,40 @@ export default function StreetLegal() {
               <h2 className="bx-serif">Explore our street-legal collection</h2>
               <p>Premium Electric. Street-Ready.</p>
             </div>
-            <Link className="sl-view-all" href="/street-legal#collection">
-              View all street-legal vehicles <ArrowRight size={16} />
+            <Link className="sl-view-all" href="/commercial#vehicles">
+              Need a work cart? See the Utility <ArrowRight size={16} />
             </Link>
           </div>
           <div className="sl-cards">
             {MODELS.map((model) => (
-              <article className="sl-card" key={model.name}>
+              <article className="sl-card" id={model.slug} key={model.slug}>
                 <div className="sl-card-media">
-                  <img src={img(model.image)} alt={`Coala ${model.name}`} loading="lazy" />
-                  {model.featured && <span>Featured</span>}
+                  <img src={withBase(model.image)} alt={`${model.name} street-legal electric cart`} loading="lazy" />
+                  {model.slug === FEATURED && <span>Featured</span>}
                 </div>
                 <div className="sl-card-body">
-                  <p className="sl-card-brand">Coala</p>
+                  <p className="sl-card-brand">{model.layout}</p>
                   <h3>{model.name}</h3>
                   <p className="sl-card-tagline">{model.tagline}</p>
                   <div className="sl-card-specs">
                     <span>
-                      <Users size={15} /> {model.seats}
+                      <Users size={15} aria-hidden="true" /> {model.seats}
                     </span>
-                    <i>·</i>
+                    <i aria-hidden="true">·</i>
                     <span>
-                      <BatteryCharging size={15} /> Lithium
+                      <BatteryCharging size={15} aria-hidden="true" /> Lithium
                     </span>
-                    <i>·</i>
+                    <i aria-hidden="true">·</i>
                     <span>
-                      <Gauge size={15} /> 25 MPH
+                      <Gauge size={15} aria-hidden="true" /> Up to 25 MPH
                     </span>
                   </div>
-                  <p className="sl-card-price">Starting at</p>
-                  <p className="sl-card-amount">{model.price}</p>
-                  <Link className="bx-btn bx-btn-quiet" href="/contact">
-                    View details
-                  </Link>
+                  <p className="sl-card-price">Range per charge</p>
+                  <p className="sl-card-amount">{model.range}</p>
+                  <p className="sl-card-note">{model.battery} · pricing on request</p>
+                  <a className="bx-btn bx-btn-quiet" href={pricingHref(model.name)}>
+                    Request pricing
+                  </a>
                 </div>
               </article>
             ))}
@@ -334,10 +313,10 @@ export default function StreetLegal() {
             <p>Premium electric vehicles that go where you need to go.</p>
             <span className="bx-rule" />
             <div className="sl-cta-actions">
-              <Link className="bx-btn bx-btn-gold" href="/street-legal#collection">
+              <a className="bx-btn bx-btn-gold" href="#collection">
                 Shop street-legal
-              </Link>
-              <Link className="bx-btn bx-btn-outline" href="/contact">
+              </a>
+              <Link className="bx-btn bx-btn-outline" href="/financing">
                 Get financing
               </Link>
             </div>

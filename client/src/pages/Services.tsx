@@ -21,6 +21,7 @@ import {
   SERVICE_NETWORK_PHONE,
   SERVICE_NETWORK_PHONE_HREF,
 } from "@/data/site";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { withBase } from "@/lib/url";
 import "@/styles/bright.css";
 import "@/styles/bright-pages.css";
@@ -29,7 +30,7 @@ const img = (name: string) => withBase(`/pages/${name}`);
 
 const STATS = [
   { value: "Mobile", label: "Service that comes to you" },
-  { value: "OEM", label: "Genuine parts and components" },
+  { value: "9", label: "Service specialties in-house" },
   { value: "10 yr", label: "Battery cell warranty" },
   { value: "Lifetime", label: "Frame warranty on every Coala" },
 ];
@@ -62,15 +63,15 @@ const CARDS = [
 const FAQ = [
   {
     q: "Do you service carts you did not sell?",
-    a: "Yes. The service network works on the Coala lineup and on most major golf cart and LSV brands.",
+    a: "Call with your make and model and we will confirm whether our service network can take it on.",
   },
   {
     q: "How long does a lithium conversion take?",
-    a: "Most conversions are completed in a single visit once the kit is in hand. We confirm the timeline when we quote the job.",
+    a: "It depends on the cart and the battery pack. We confirm parts availability and timing when we quote the job.",
   },
   {
     q: "Can you come to my community?",
-    a: "Mobile service covers home, community and commercial properties. Tell us the address and we will confirm coverage.",
+    a: "Mobile service to your location is part of what we offer. Tell us the address and we will confirm coverage.",
   },
   {
     q: "What does the warranty cover?",
@@ -79,6 +80,8 @@ const FAQ = [
 ];
 
 export default function Services() {
+  usePageTitle("Parts & Service");
+
   return (
     <div className="bh-page pg-page">
       <BrightHeader active="Service" />
@@ -95,8 +98,8 @@ export default function Services() {
               <em>beyond the sale.</em>
             </h1>
             <p>
-              From scheduled maintenance to controller tuning and warranty repairs, our technicians keep your vehicle
-              running like new — in the shop or at your door.
+              From multi-point inspections to controller and motor testing and electrical diagnostics, our technicians
+              keep your cart running like new — in the shop or at your location.
             </p>
             <span className="bx-rule" />
             <div className="pg-hero-actions">
@@ -150,24 +153,24 @@ export default function Services() {
         </div>
       </section>
 
-      <section className="pg-section pg-dark">
+      <section className="pg-section pg-dark" id="lithium">
         <div className="bh-container pg-split">
           <div>
             <p className="bx-eyebrow">Drop-in performance</p>
             <h2 className="bx-serif">Upgrade your ride to lithium.</h2>
-            <p style={{ maxWidth: 470, margin: "18px 0 0", color: "#bdb8b1", fontSize: 15, lineHeight: 1.7 }}>
-              Say goodbye to acid spills, heavy watering and short battery lifespans. Cut vehicle weight, charge faster
-              and get years of reliable power from an ECO Battery lithium platform.
+            <p className="pg-lead">
+              Swap lead-acid batteries for an ECO Battery lithium pack: no watering, no acid spills and far less
+              maintenance. Ask us for a quote for your cart.
             </p>
             <ul className="pg-checklist">
               <li>
-                <CheckCircle2 size={17} /> Professional installation by factory-trained technicians
+                <CheckCircle2 size={17} aria-hidden="true" /> Professional installation by our service team
               </li>
               <li>
-                <CheckCircle2 size={17} /> Compatible with most major cart brands
+                <CheckCircle2 size={17} aria-hidden="true" /> Lead-acid to lithium conversions
               </li>
               <li>
-                <CheckCircle2 size={17} /> Zero watering, zero acid, far less maintenance
+                <CheckCircle2 size={17} aria-hidden="true" /> No watering, no acid, far less maintenance
               </li>
             </ul>
             <div className="pg-hero-actions">
@@ -200,7 +203,7 @@ export default function Services() {
         </div>
       </section>
 
-      <section className="pg-strip">
+      <section className="pg-strip" id="warranty">
         <div className="bh-container pg-strip-grid">
           <article className="pg-strip-item">
             <BatteryCharging size={28} strokeWidth={1.2} />
@@ -225,7 +228,7 @@ export default function Services() {
         </div>
       </section>
 
-      <section className="pg-section pg-darker">
+      <section className="pg-section pg-darker" id="faq">
         <div className="bh-container">
           <div className="pg-head">
             <p className="bx-eyebrow">Questions</p>

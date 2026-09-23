@@ -1,7 +1,7 @@
 /**
  * Bright EV Golf Carts — real business + product content
  *
- * Every value here was checked against a live source on 2026-09-17:
+ * Every value here was checked against a live source (2026-09-17, re-checked 2026-09-23):
  *  - https://brightevgolfcarts.com/  (the current real Bright EV Golf Carts site — contact info, tone)
  *  - https://brightev.com/golf-cart-parts-and-service/  (the real service page we link out to)
  *  - https://brightev.com/vehicles-coala-golf-carts/ and its product pages (Coala inventory and specs)
@@ -24,7 +24,6 @@ export const CONTACT = {
   tagline: "Brightening Your Drive, One Cart at a Time.",
   descriptor: "San Diego's electric cart specialists",
   hoursNote: "Hours not posted online — call ahead to confirm before you visit.",
-  instagramHref: "https://www.instagram.com",
 } as const;
 
 export const SERVICE_LINK_URL = "https://brightev.com/golf-cart-parts-and-service/";
@@ -33,30 +32,6 @@ export const SERVICE_LINK_URL = "https://brightev.com/golf-cart-parts-and-servic
 // the local San Diego dealership number above.
 export const SERVICE_NETWORK_PHONE = "888-260-0707";
 export const SERVICE_NETWORK_PHONE_HREF = "tel:+18882600707";
-
-export type NavChild = { label: string; href: string };
-export type NavItem = { label: string; href: string; children?: NavChild[] };
-
-export const NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "/" },
-  {
-    label: "Street Legal",
-    href: "/street-legal",
-    children: [
-      { label: "2 Seater", href: "/street-legal#2-seater" },
-      { label: "2+2 Seater", href: "/street-legal#2-plus-2" },
-      { label: "4 Seater", href: "/street-legal#4-seater" },
-      { label: "4+2 Seater", href: "/street-legal#4-plus-2" },
-    ],
-  },
-  {
-    label: "Commercial",
-    href: "/commercial",
-    children: [{ label: "Utility", href: "/commercial#utility" }],
-  },
-  { label: "Services", href: "/services" },
-  { label: "Contact", href: "/contact" },
-];
 
 export interface CartCategoryCopy {
   slug: string;
@@ -198,6 +173,119 @@ export const COMMERCIAL_CATEGORIES: CartCategoryCopy[] = [
     fallbackImage: "/banner-service.jpg",
   },
 ];
+
+/**
+ * The Coala lineup is the only inventory this dealership sells. Specs mirror the
+ * verified category data above (drivecoala.com / brightev.com); prices are not
+ * published by either source, so the site asks visitors to request a quote.
+ */
+export interface CoalaModel {
+  slug: string;
+  name: string;
+  layout: string;
+  seats: string;
+  seatsLabel: string;
+  tagline: string;
+  battery: string;
+  range: string;
+  speed: string;
+  image: string;
+  description: string;
+}
+
+const categoryDescription = (slug: string) =>
+  [...STREET_LEGAL_CATEGORIES, ...COMMERCIAL_CATEGORIES].find((category) => category.slug === slug)!.description;
+
+export const COALA_MODELS: CoalaModel[] = [
+  {
+    slug: "coala-2",
+    name: "Coala 2",
+    layout: "2 Seater",
+    seats: "2",
+    seatsLabel: "2 passengers",
+    tagline: "Compact two-seater that is easy to maneuver.",
+    battery: "48V 105Ah lithium",
+    range: "37–49 mi",
+    speed: "12–25 mph",
+    image: "/models/coala-2.jpg",
+    description: categoryDescription("2-seater"),
+  },
+  {
+    slug: "coala-2-2",
+    name: "Coala 2+2",
+    layout: "2+2 Seater",
+    seats: "4",
+    seatsLabel: "Up to 4 passengers",
+    tagline: "Two forward seats plus a rear-facing seat.",
+    battery: "48V 105Ah lithium",
+    range: "37–49 mi",
+    speed: "12–25 mph",
+    image: "/models/coala-2-2.jpg",
+    description: categoryDescription("2-plus-2"),
+  },
+  {
+    slug: "coala-4",
+    name: "Coala 4",
+    layout: "4 Seater",
+    seats: "4",
+    seatsLabel: "4 passengers",
+    tagline: "Four forward-facing seats for the whole family.",
+    battery: "48V 150Ah lithium",
+    range: "37–49 mi",
+    speed: "12–25 mph",
+    image: "/models/coala-4.jpg",
+    description: categoryDescription("4-seater"),
+  },
+  {
+    slug: "coala-4-2",
+    name: "Coala 4+2",
+    layout: "4+2 Seater",
+    seats: "6",
+    seatsLabel: "Up to 6 passengers",
+    tagline: "Four forward seats plus a rear-facing seat for groups.",
+    battery: "48V 150Ah lithium",
+    range: "37–49 mi",
+    speed: "12–25 mph",
+    image: "/models/coala-4-2.jpg",
+    description: categoryDescription("4-plus-2"),
+  },
+  {
+    slug: "coala-2-utility",
+    name: "Coala 2 Utility",
+    layout: "Utility",
+    seats: "2",
+    seatsLabel: "2 passengers + cargo bed",
+    tagline: "Two seats and a rear cargo bed (39×51 in or 63×73 in).",
+    battery: "48V 105Ah lithium",
+    range: "37–49 mi",
+    speed: "12–25 mph",
+    image: "/models/coala-2-utility.jpg",
+    description: categoryDescription("utility"),
+  },
+];
+
+export const coalaModel = (slug: string) => COALA_MODELS.find((model) => model.slug === slug)!;
+
+/**
+ * Bright EV network facts, confirmed on brightev.com (2026-09-23): financing
+ * terms from the finance page, rental rates from the rentals page, the
+ * multi-state location list and nationwide delivery from the locations and
+ * story pages.
+ */
+export const NETWORK = {
+  states: "California, Arizona, Nevada, New Mexico and Hawaii",
+  cities: "San Diego · Tempe · Scottsdale · Las Vegas · Henderson · Honolulu · Albuquerque",
+  textLine: "858-249-9030",
+  locationsHref: "https://brightev.com/locations/",
+  reviewsHref: "https://brightev.com/bright-ev-customer-reviews/",
+  financeFacts: {
+    promo: "0% interest for 24 months",
+    lowPayment: "$199/mo",
+    terms: "24, 36 or 48 months",
+    minScore: "650",
+  },
+  rentalFrom: "$225/day",
+} as const;
 
 export const SERVICES_OFFERED = [
   "Multi-point inspections",

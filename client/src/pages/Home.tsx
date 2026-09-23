@@ -11,7 +11,6 @@ import {
   ChevronRight,
   CircleDollarSign,
   Clock3,
-  FileCheck2,
   Gauge,
   Handshake,
   MapPin,
@@ -29,7 +28,8 @@ import {
 import { Link } from "wouter";
 import BrightFooter from "@/components/BrightFooter";
 import BrightHeader from "@/components/BrightHeader";
-import { CONTACT } from "@/data/site";
+import { CONTACT, COALA_MODELS, NETWORK, SERVICE_NETWORK_PHONE_HREF, coalaModel } from "@/data/site";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { withBase } from "@/lib/url";
 import "@/styles/bright.css";
 
@@ -47,88 +47,31 @@ const FEATURES = [
   {
     icon: Zap,
     title: "Smarter electric power",
-    text: "Smooth, quiet electric performance powered by zero-maintenance high-cycle lithium technology.",
+    text: "A 48V lithium platform with a 6.5kW AC motor — quiet, smooth and no battery watering.",
   },
   {
     icon: Sparkles,
     title: "Premium comfort",
-    text: "Thoughtful ergonomic seating, automotive-grade suspension, and abundant protected storage.",
+    text: "Independent double-wishbone front suspension and four-wheel hydraulic disc brakes.",
   },
   {
     icon: Settings2,
     title: "Ready for your world",
-    text: "Personalize seating, lift kits, sound bars, and cargo attachments tailored to your lifestyle.",
+    text: "Choose 2, 2+2, 4 or 4+2 seating, or a Utility with a rear cargo bed.",
   },
 ];
 
 const TABS = ["Personal", "Street Legal", "Commercial", "Resort & Hospitality"];
 
-const MODELS = [
-  {
-    category: "Personal",
-    name: "Icon i40L",
-    badges: ["Most Popular", "Lifted LSV"],
-    image: "model-lifted.jpg",
-    text: "Street-legal capability. Lifted suspension. Luxurious, diamond-stitched comfort with performance engineering designed for both the golf course and the neighborhood.",
-    price: "$12,995",
-  },
-  {
-    category: "Personal",
-    name: "Icon i40",
-    badges: ["Family Favorite", "4 Passenger"],
-    image: "model-street.jpg",
-    text: "Four forward-facing seats, automotive paint, and a lithium platform tuned for daily neighborhood driving with effortless charging at home.",
-    price: "$11,495",
-  },
-  {
-    category: "Street Legal",
-    name: "Icon i60L",
-    badges: ["LSV Certified", "6 Passenger"],
-    image: "model-compact.jpg",
-    text: "Six-passenger street-legal comfort with seat belts, turn signals, mirrors, and DOT windshield — ready for posted 35 mph roads.",
-    price: "$14,995",
-  },
-  {
-    category: "Street Legal",
-    name: "Icon i20",
-    badges: ["Compact", "2 Passenger"],
-    image: "model-street.jpg",
-    text: "A compact two-passenger LSV with the same premium finishes, built for quick errands and tight community streets.",
-    price: "$9,995",
-  },
-  {
-    category: "Commercial",
-    name: "Icon i40F Utility",
-    badges: ["Fleet Ready", "Cargo Bed"],
-    image: "model-utility.jpg",
-    text: "Rear cargo bed, heavy-duty suspension, and fleet telematics prep for facilities, security teams, and warehouse operations.",
-    price: "$13,495",
-  },
-  {
-    category: "Commercial",
-    name: "Icon i40 Crew",
-    badges: ["Work Crew", "Fleet Pricing"],
-    image: "model-lifted.jpg",
-    text: "Crew transport for campuses and job sites with reinforced frames, tow hitch, and volume fleet pricing.",
-    price: "$12,295",
-  },
-  {
-    category: "Resort & Hospitality",
-    name: "Icon i60 Shuttle",
-    badges: ["Guest Shuttle", "6 Passenger"],
-    image: "model-compact.jpg",
-    text: "Premium multi-passenger shuttling with grab handles, custom wraps, and quiet operation that keeps resort grounds serene.",
-    price: "$15,995",
-  },
-  {
-    category: "Resort & Hospitality",
-    name: "Icon i80 Limo",
-    badges: ["Flagship", "8 Passenger"],
-    image: "model-utility.jpg",
-    text: "Eight-passenger limo seating engineered to deliver smooth, noiseless first-class guest experiences.",
-    price: "$18,495",
-  },
-];
+const SELECTOR: Record<string, string[]> = {
+  Personal: ["coala-4", "coala-2-2"],
+  "Street Legal": ["coala-2", "coala-4-2"],
+  Commercial: ["coala-2-utility"],
+  "Resort & Hospitality": ["coala-4-2", "coala-4"],
+};
+
+const detailsHref = (slug: string) =>
+  slug === "coala-2-utility" ? "/commercial#vehicles" : `/street-legal#${slug}`;
 
 const USE_CASES = [
   {
@@ -160,29 +103,21 @@ const USE_CASES = [
 const WHY = [
   {
     icon: BadgeCheck,
-    title: "Premium selection",
-    text: "Top-tier electric vehicles rigorously vetted from leading manufacturers.",
+    title: "Genuine Coala lineup",
+    text: "Every cart we sell is a Coala, backed by a 10-year battery cell warranty.",
   },
-  { icon: Tag, title: "Clear pricing", text: "Zero hidden dealership fees or surprise destination surcharges." },
+  { icon: Tag, title: "Straight answers", text: "Verified specs, real inventory photos and quotes on request." },
   {
     icon: Building2,
     title: "Easy financing",
-    text: "Competitive rates with nationwide lending partners for all credit tiers.",
+    text: "0% interest for 24 months on approved credit, with 24–48 month terms.",
   },
-  { icon: Truck, title: "Direct delivery", text: "Enclosed or open-carrier transportation right to your door." },
+  { icon: Truck, title: "Direct delivery", text: "Delivery anywhere in the continental United States." },
   {
     icon: Handshake,
     title: "Sales & service",
-    text: "Dedicated mobile technicians, factory-trained and OEM spare parts.",
+    text: "Mobile service, repairs and lithium upgrades through our service network.",
   },
-];
-
-const BRANDS = [
-  { name: "Icon EV", image: "brand-1.jpg", text: "High-torque commuter and PTV neighborhood carts." },
-  { name: "Epic Carts", image: "brand-2.jpg", text: "UTV-inspired aesthetics with standard premium upgrades." },
-  { name: "Dach", image: "brand-3.jpg", text: "Rugged durability and heavy-duty chassis engineering." },
-  { name: "Solana", image: "brand-4.jpg", text: "European styling matched with efficient zero-emission range." },
-  { name: "Tomberlin", image: "brand-5.jpg", text: "Automotive-grade LSVs built for highway-certified standards." },
 ];
 
 const GALLERY = [
@@ -215,7 +150,9 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState(TABS[0]);
   const [slide, setSlide] = useState(0);
 
-  const models = useMemo(() => MODELS.filter((model) => model.category === activeTab), [activeTab]);
+  usePageTitle("Street-Legal Coala Electric Carts");
+
+  const models = useMemo(() => SELECTOR[activeTab].map(coalaModel), [activeTab]);
   const model = models[slide] ?? models[0];
 
   useEffect(() => {
@@ -236,7 +173,7 @@ export default function Home() {
         <div className="bh-container bh-hero-inner">
           <div className="bh-hero-copy">
             <p className="bh-hero-badge">
-              <Sparkles size={12} /> 2026 fleet lineup now arriving
+              <Sparkles size={12} aria-hidden="true" /> Street-legal Coala electric carts
             </p>
             <h1>
               Life is <em>bright.</em>
@@ -250,7 +187,7 @@ export default function Home() {
               <Link className="bh-btn bh-btn-gold" href="/street-legal">
                 Shop golf carts
               </Link>
-              <Link className="bh-btn bh-btn-ghost" href="/contact">
+              <Link className="bh-btn bh-btn-ghost" href="/financing">
                 Explore financing
               </Link>
             </div>
@@ -284,12 +221,12 @@ export default function Home() {
         </div>
         <div className="bh-hero-card">
           <div>
-            <span>Flagship edition</span>
-            <strong>Icon i40L Lifted EV</strong>
+            <span>Featured model</span>
+            <strong>Coala 4 Street-Legal</strong>
           </div>
           <div className="bh-hero-price">
-            <span>Starting from</span>
-            <strong>$12,995</strong>
+            <span>Range per charge</span>
+            <strong>37–49 mi</strong>
           </div>
         </div>
       </section>
@@ -298,14 +235,14 @@ export default function Home() {
       <section className="bh-promo">
         <div className="bh-container bh-promo-inner">
           <span className="bh-promo-icon">
-            <Sun size={20} />
+            <Sun size={20} aria-hidden="true" />
           </span>
           <div>
-            <h3>Summer is here. So are the savings.</h3>
-            <p>Save up to $777 on select premium golf carts through September 30, 2026.</p>
+            <h2>0% for 24 months. Drive it home now.</h2>
+            <p>Payments as low as $199/mo on approved credit, with 24, 36 or 48-month terms.</p>
           </div>
-          <Link className="bh-btn bh-btn-muted" href="/street-legal">
-            View summer savings
+          <Link className="bh-btn bh-btn-muted" href="/financing">
+            See financing offers
           </Link>
         </div>
       </section>
@@ -331,17 +268,17 @@ export default function Home() {
             <div className="bh-mini-cards">
               <article className="bh-mini-card">
                 <Gauge size={18} />
-                <h4>Street legal</h4>
+                <h3>Street legal</h3>
                 <p>Take your electric ride beyond the course with select street-legal models.</p>
               </article>
               <article className="bh-mini-card">
                 <Briefcase size={18} />
-                <h4>Built for work</h4>
+                <h3>Built for work</h3>
                 <p>Reliable electric transportation for resorts, hospitality, and corporate fleets.</p>
               </article>
               <article className="bh-mini-card">
                 <Zap size={18} />
-                <h4>No gas. All fun.</h4>
+                <h3>No gas. All fun.</h3>
                 <p>Quiet, efficient electric driving without sacrificing comfort or speed.</p>
               </article>
             </div>
@@ -376,7 +313,7 @@ export default function Home() {
                     <Icon size={18} />
                   </span>
                   <div>
-                    <h4>{feature.title}</h4>
+                    <h3>{feature.title}</h3>
                     <p>{feature.text}</p>
                   </div>
                 </article>
@@ -433,41 +370,45 @@ export default function Home() {
           <div className="bh-selector">
             <div className="bh-selector-stage">
               <div className="bh-selector-stage-inner">
-                <img src={img(model.image)} alt={model.name} loading="lazy" />
-                <button className="bh-stage-nav bh-stage-prev" onClick={() => move(-1)} aria-label="Previous model">
-                  <ChevronLeft size={18} />
-                </button>
-                <button className="bh-stage-nav bh-stage-next" onClick={() => move(1)} aria-label="Next model">
-                  <ChevronRight size={18} />
-                </button>
+                <img src={withBase(model.image)} alt={`${model.name} electric cart`} loading="lazy" />
+                {models.length > 1 && (
+                  <>
+                    <button className="bh-stage-nav bh-stage-prev" onClick={() => move(-1)} aria-label="Previous model">
+                      <ChevronLeft size={18} />
+                    </button>
+                    <button className="bh-stage-nav bh-stage-next" onClick={() => move(1)} aria-label="Next model">
+                      <ChevronRight size={18} />
+                    </button>
+                  </>
+                )}
               </div>
             </div>
             <div className="bh-selector-copy">
               <div className="bh-badges">
-                <span className="bh-badge bh-badge-gold">{model.badges[0]}</span>
-                <span className="bh-badge bh-badge-outline">{model.badges[1]}</span>
+                <span className="bh-badge bh-badge-gold">{model.layout}</span>
+                <span className="bh-badge bh-badge-outline">{model.seatsLabel}</span>
               </div>
               <h3>{model.name}</h3>
-              <p>{model.text}</p>
+              <p>{model.description}</p>
               <div className="bh-price-box">
                 <div>
-                  <span>Starting at</span>
+                  <span>Range per charge</span>
                   <ul>
                     <li>
-                      <CheckCircle2 size={14} /> Financing from 5.99% APR available
+                      <CheckCircle2 size={14} aria-hidden="true" /> 0% interest for 24 months on approved credit
                     </li>
                     <li>
-                      <CheckCircle2 size={14} /> Nationwide white-glove home delivery
+                      <CheckCircle2 size={14} aria-hidden="true" /> Delivery anywhere in the continental U.S.
                     </li>
                   </ul>
                 </div>
-                <strong className="bh-price-amount">{model.price}</strong>
+                <strong className="bh-price-amount">{model.range}</strong>
               </div>
               <div className="bh-selector-actions">
-                <Link className="bh-btn bh-btn-gold" href="/street-legal">
+                <Link className="bh-btn bh-btn-gold" href={detailsHref(model.slug)}>
                   View details
                 </Link>
-                <Link className="bh-btn bh-btn-muted" href="/contact">
+                <Link className="bh-btn bh-btn-muted" href="/financing">
                   Get financing
                 </Link>
               </div>
@@ -502,29 +443,29 @@ export default function Home() {
             <p className="bh-eyebrow">Your next ride is within reach</p>
             <h2>Drive now. Pay over time.</h2>
             <p>
-              Getting into a premium electric vehicle shouldn&apos;t mean paying everything upfront. Explore flexible
-              low-APR financing options tailored to your monthly budget.
+              Getting into a premium electric vehicle shouldn&apos;t mean paying everything upfront. Payments start as
+              low as $199/mo at 0% interest for 24 months, subject to approval.
             </p>
             <div className="bh-finance-tiles">
               <div className="bh-finance-tile">
-                <ShieldCheck size={18} />
-                <span>Quick approval</span>
+                <ShieldCheck size={18} aria-hidden="true" />
+                <span>0% for 24 mo.</span>
               </div>
               <div className="bh-finance-tile">
-                <CircleDollarSign size={18} />
-                <span>Flexible terms</span>
+                <CircleDollarSign size={18} aria-hidden="true" />
+                <span>24–48 mo. terms</span>
               </div>
               <div className="bh-finance-tile">
-                <BadgeCheck size={18} />
-                <span>No prepay penalty</span>
+                <BadgeCheck size={18} aria-hidden="true" />
+                <span>$0 down OAC</span>
               </div>
             </div>
             <div className="bh-card-actions">
-              <Link className="bh-btn bh-btn-gold" href="/contact">
+              <Link className="bh-btn bh-btn-gold" href="/financing">
                 Apply for financing
               </Link>
-              <Link className="bh-btn bh-btn-grey" href="/contact">
-                <Calculator size={15} /> Calculate payment
+              <Link className="bh-btn bh-btn-grey" href="/financing#calculator">
+                <Calculator size={15} aria-hidden="true" /> Calculate payment
               </Link>
             </div>
           </article>
@@ -535,7 +476,7 @@ export default function Home() {
                 <p className="bh-eyebrow">Direct delivery</p>
                 <strong>To your driveway</strong>
                 <p>
-                  <CheckCircle2 size={13} /> Fully assembled, inspected and charged — ready upon arrival.
+                  <CheckCircle2 size={13} aria-hidden="true" /> Delivered to your home or business, ready to drive.
                 </p>
               </div>
               <Truck size={26} />
@@ -543,35 +484,38 @@ export default function Home() {
             <p className="bh-eyebrow">From our lot to your door</p>
             <h2>Nationwide delivery made simple.</h2>
             <p>
-              Found the perfect vehicle but don&apos;t live down the street? No problem. Our dedicated transport
-              logistics team delivers directly across the contiguous U.S.
+              Found the perfect cart but don&apos;t live down the street? No problem. We deliver anywhere in the
+              continental United States.
             </p>
             <div className="bh-steps">
               <div className="bh-step">
                 <span className="bh-step-num">1</span>
                 <div>
-                  <h4>Select your cart</h4>
-                  <p>Choose model, options, colors, and seat configuration finishes.</p>
+                  <h3>Select your cart</h3>
+                  <p>Choose your Coala model, seating layout and color.</p>
                 </div>
               </div>
               <div className="bh-step">
                 <span className="bh-step-num">2</span>
                 <div>
-                  <h4>Finalize financing &amp; paperwork</h4>
-                  <p>Fast digital sign-off and title processing handled by our team.</p>
+                  <h3>Finalize financing &amp; paperwork</h3>
+                  <p>Apply for financing and complete the purchase paperwork with our team.</p>
                 </div>
               </div>
               <div className="bh-step">
                 <span className="bh-step-num">3</span>
                 <div>
-                  <h4>White-glove delivery</h4>
-                  <p>Unloaded at your residence or business, ready to drive immediately.</p>
+                  <h3>White-glove delivery</h3>
+                  <p>We schedule delivery to your residence or business.</p>
                 </div>
               </div>
             </div>
-            <Link className="bh-btn bh-btn-dark bh-btn-block" href="/contact">
+            <a
+              className="bh-btn bh-btn-dark bh-btn-block"
+              href={`${CONTACT.emailHref}?subject=${encodeURIComponent("Delivery quote request")}`}
+            >
               Get a delivery quote
-            </Link>
+            </a>
           </article>
         </div>
       </section>
@@ -591,7 +535,7 @@ export default function Home() {
                   <span className="bh-why-icon">
                     <Icon size={19} />
                   </span>
-                  <h4>{item.title}</h4>
+                  <h3>{item.title}</h3>
                   <p>{item.text}</p>
                 </div>
               );
@@ -600,24 +544,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Brands */}
+      {/* Coala lineup */}
       <section className="bh-section bh-section-dark">
         <div className="bh-container">
           <div className="bh-section-head">
-            <p className="bh-eyebrow">Premier portfolio</p>
-            <h2 className="bh-display">Explore our electric brands</h2>
-            <p>Different personalities. Shared commitment to quality and quiet electric freedom.</p>
+            <p className="bh-eyebrow">The Coala lineup</p>
+            <h2 className="bh-display">Explore the Coala lineup</h2>
+            <p>Five layouts, one standard: lithium power, street-legal equipment and a 10-year battery cell warranty.</p>
           </div>
           <div className="bh-brands">
-            {BRANDS.map((brand) => (
-              <Link className="bh-brand" href="/street-legal" key={brand.name}>
+            {COALA_MODELS.map((lineup) => (
+              <Link className="bh-brand" href={detailsHref(lineup.slug)} key={lineup.slug}>
                 <span className="bh-brand-media">
-                  <img src={img(brand.image)} alt={brand.name} loading="lazy" />
+                  <img src={withBase(lineup.image)} alt={`${lineup.name} electric cart`} loading="lazy" />
                 </span>
-                <h4>{brand.name}</h4>
-                <p>{brand.text}</p>
+                <h3>{lineup.name}</h3>
+                <p>{lineup.tagline}</p>
                 <span className="bh-link-gold">
-                  Explore <ArrowRight size={13} />
+                  Explore <ArrowRight size={13} aria-hidden="true" />
                 </span>
               </Link>
             ))}
@@ -632,23 +576,23 @@ export default function Home() {
             <img src={img("service.jpg")} alt="Technician servicing an electric cart" loading="lazy" />
             <div className="bh-support-body">
               <p className="bh-eyebrow">Dedicated support</p>
-              <h3>Service that goes beyond the sale.</h3>
+              <h2>Service that goes beyond the sale.</h2>
               <p>
-                From scheduled preventive check-ups to complex controller tuning and warranty repairs, our
-                factory-certified technicians keep your vehicle running like new.
+                From multi-point inspections to controller and motor testing, electrical diagnostics and brake service,
+                our service network keeps your cart running like new — including mobile service at your location.
               </p>
               <div className="bh-chips">
-                <span>Mobile diagnostics</span>
-                <span>Custom accessories</span>
-                <span>OEM replacements</span>
+                <span>Mobile service</span>
+                <span>Electrical diagnostics</span>
+                <span>Brakes &amp; suspension</span>
               </div>
               <div className="bh-support-actions">
                 <Link className="bh-btn bh-btn-gold" href="/services">
                   Explore service
                 </Link>
-                <Link className="bh-btn bh-btn-muted" href="/contact">
+                <a className="bh-btn bh-btn-muted" href={SERVICE_NETWORK_PHONE_HREF}>
                   Schedule service
-                </Link>
+                </a>
               </div>
             </div>
           </article>
@@ -657,26 +601,26 @@ export default function Home() {
             <img src={img("lithium.jpg")} alt="Lithium battery upgrade packs" loading="lazy" />
             <div className="bh-support-body">
               <p className="bh-eyebrow bh-support-eyebrow">
-                <BatteryCharging size={14} /> Drop-in performance
+                <BatteryCharging size={14} aria-hidden="true" /> Drop-in performance
               </p>
-              <h3>Upgrade your ride to lithium from $2,499.</h3>
+              <h2>Upgrade your ride to lithium.</h2>
               <p>
-                Say goodbye to acid spills, heavy watering, and short battery lifespans. Cut vehicle weight by 300 lbs
-                and enjoy 3x faster charging and up to 10 years of reliable power.
+                Swap lead-acid batteries for an ECO Battery lithium pack: no watering, no acid spills and far less
+                maintenance. Ask us for a quote for your cart.
               </p>
               <div className="bh-checks">
                 <span>
-                  <CheckCircle2 size={14} /> 8-year warranty
+                  <CheckCircle2 size={14} aria-hidden="true" /> Lead-acid to lithium
                 </span>
                 <span>
-                  <CheckCircle2 size={14} /> Pro installation
+                  <CheckCircle2 size={14} aria-hidden="true" /> Professional installation
                 </span>
                 <span>
-                  <CheckCircle2 size={14} /> Compatible with most brands
+                  <CheckCircle2 size={14} aria-hidden="true" /> Mobile service available
                 </span>
               </div>
               <div className="bh-support-actions">
-                <Link className="bh-btn bh-btn-gold" href="/services">
+                <Link className="bh-btn bh-btn-gold" href="/services#lithium">
                   Explore battery upgrades
                 </Link>
               </div>
@@ -704,21 +648,19 @@ export default function Home() {
           <div className="bh-proof">
             <article className="bh-card-light">
               <p className="bh-eyebrow">Real people, real rides</p>
-              <div className="bh-stars">
+              <div className="bh-stars" role="img" aria-label="Five-star rating">
                 {[0, 1, 2, 3, 4].map((star) => (
-                  <Star key={star} size={15} fill="currentColor" strokeWidth={0} />
+                  <Star key={star} size={15} fill="currentColor" strokeWidth={0} aria-hidden="true" />
                 ))}
               </div>
               <p className="bh-quote">
-                &ldquo;The entire process was easier than we expected. From custom seating selection to doorstep
-                delivery in Arizona, BrightEV made purchasing our family&apos;s cart an absolute joy.&rdquo;
+                Rated five stars by Bright EV customers, who single out the team&apos;s product knowledge, fair pricing
+                and the service they get long after the sale.
               </p>
               <div className="bh-owner">
-                <img src={img("owner.jpg")} alt="Marcus and Elena Vance" loading="lazy" />
-                <div>
-                  <strong>Marcus &amp; Elena Vance</strong>
-                  <span>Verified owners — Scottsdale, AZ</span>
-                </div>
+                <a className="bh-link-gold" href={NETWORK.reviewsHref} target="_blank" rel="noreferrer">
+                  Read customer reviews <ArrowRight size={13} aria-hidden="true" />
+                </a>
               </div>
             </article>
 
@@ -726,17 +668,17 @@ export default function Home() {
               <p className="bh-eyebrow">Come where you need us</p>
               <h3>Sales, rentals &amp; service</h3>
               <p>
-                Serving residential owners and commercial partners across California, Arizona, Nevada, New Mexico, and
-                Hawaii with mobile vans and regional hubs.
+                Part of the Bright EV network, serving residential owners and commercial partners across{" "}
+                {NETWORK.states}.
               </p>
               <div className="bh-map">
                 <ServiceMap />
                 <span className="bh-map-label">
-                  <MapPin size={13} /> San Diego · Scottsdale · Palm Springs · Las Vegas · Honolulu
+                  <MapPin size={13} aria-hidden="true" /> {NETWORK.cities}
                 </span>
               </div>
               <div className="bh-card-actions">
-                <a className="bh-btn bh-btn-dark" href={CONTACT.mapsHref} target="_blank" rel="noreferrer">
+                <a className="bh-btn bh-btn-dark" href={NETWORK.locationsHref} target="_blank" rel="noreferrer">
                   Find a location
                 </a>
                 <Link className="bh-btn bh-btn-grey" href="/contact">
