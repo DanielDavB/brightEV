@@ -31,7 +31,7 @@ import BrightFooter from "@/components/BrightFooter";
 import BrightHeader from "@/components/BrightHeader";
 import { CONTACT } from "@/data/site";
 import { withBase } from "@/lib/url";
-import "@/styles/bright-home.css";
+import "@/styles/bright.css";
 
 const img = (name: string) => withBase(`/bright/${name}`);
 
