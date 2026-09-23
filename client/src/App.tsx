@@ -4,7 +4,9 @@ import NotFound from "@/pages/NotFound";
 import { Route, Router, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import About from "./pages/About";
 import Commercial from "./pages/Commercial";
+import Financing from "./pages/Financing";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
@@ -16,6 +18,8 @@ function AppRoutes() {
       <Route path="/" component={Home} />
       <Route path="/street-legal" component={StreetLegal} />
       <Route path="/commercial" component={Commercial} />
+      <Route path="/financing" component={Financing} />
+      <Route path="/about" component={About} />
       <Route path="/services" component={Services} />
       <Route path="/contact" component={Contact} />
       <Route path="/404" component={NotFound} />

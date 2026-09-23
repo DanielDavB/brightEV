@@ -28,18 +28,18 @@ const COLUMNS = [
   {
     title: "Financing",
     links: [
-      { label: "Easy Financing", href: "/contact" },
-      { label: "Apply for Financing", href: "/contact" },
-      { label: "Commercial Financing", href: "/commercial" },
+      { label: "Easy Financing", href: "/financing" },
+      { label: "Apply for Financing", href: "/financing" },
+      { label: "Commercial Financing", href: "/financing" },
     ],
   },
   {
     title: "Company",
     links: [
-      { label: "About Bright EV", href: "/contact" },
-      { label: "Locations", href: "/contact" },
-      { label: "Customer Stories", href: "/contact" },
-      { label: "FAQs", href: "/contact" },
+      { label: "About Bright EV", href: "/about" },
+      { label: "Locations", href: "/about" },
+      { label: "Customer Stories", href: "/about" },
+      { label: "FAQs", href: "/financing" },
     ],
   },
   {

@@ -7,9 +7,9 @@ const NAV = [
   { label: "Shop", href: "/street-legal", caret: true },
   { label: "Street-Legal", href: "/street-legal" },
   { label: "Commercial", href: "/commercial" },
-  { label: "Financing", href: "/contact" },
+  { label: "Financing", href: "/financing" },
   { label: "Service", href: "/services" },
-  { label: "About", href: "/contact", caret: true },
+  { label: "About", href: "/about", caret: true },
 ];
 
 export function BrightLogo() {
