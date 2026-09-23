@@ -28,7 +28,7 @@ const WHAT_WE_DO = [
     icon: KeyRound,
     title: "Rentals",
     text: "Beach days, neighborhood loops and events, handled from our Mission Boulevard location.",
-    href: "/contact",
+    href: "#visit",
     action: "Reserve a cart",
   },
   {
@@ -135,9 +135,15 @@ export default function About() {
                   </span>
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
-                  <Link className="pg-link" href={item.href}>
-                    {item.action} <ArrowRight size={14} />
-                  </Link>
+                  {item.href.startsWith("#") ? (
+                    <a className="pg-link" href={item.href}>
+                      {item.action} <ArrowRight size={14} />
+                    </a>
+                  ) : (
+                    <Link className="pg-link" href={item.href}>
+                      {item.action} <ArrowRight size={14} />
+                    </Link>
+                  )}
                 </article>
               );
             })}
@@ -160,7 +166,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="pg-section pg-light">
+      <section className="pg-section pg-light" id="visit">
         <div className="bh-container">
           <div className="pg-head">
             <p className="bx-eyebrow">Visit us</p>

@@ -173,7 +173,7 @@ export default function Commercial() {
           </div>
         </div>
 
-        <div className="cm-form">
+        <div className="cm-form" id="fleet-form">
           <div className="cm-form-inner">
             <div>
               <p className="bx-eyebrow">Build your fleet</p>
@@ -285,9 +285,9 @@ export default function Commercial() {
             ))}
           </div>
           <div className="cm-vehicles-action">
-            <Link className="bx-btn bx-btn-gold-outline" href="/contact">
+            <a className="bx-btn bx-btn-gold-outline" href="#fleet-form">
               View all commercial vehicles
-            </Link>
+            </a>
           </div>
         </div>
       </section>

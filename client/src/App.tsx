@@ -7,7 +7,6 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import About from "./pages/About";
 import Commercial from "./pages/Commercial";
 import Financing from "./pages/Financing";
-import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import StreetLegal from "./pages/StreetLegal";
@@ -21,7 +20,7 @@ function AppRoutes() {
       <Route path="/financing" component={Financing} />
       <Route path="/about" component={About} />
       <Route path="/services" component={Services} />
-      <Route path="/contact" component={Contact} />
+      <Route path="/contact" component={About} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
