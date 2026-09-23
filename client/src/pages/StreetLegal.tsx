@@ -148,12 +148,12 @@ export default function StreetLegal() {
         </div>
         <div className="bh-container sl-hero-inner">
           <div className="sl-hero-copy">
-            <h1 className="sl-serif">
+            <h1 className="bx-serif">
               Take your ride
               <em>Beyond the course.</em>
             </h1>
             <p>Street-legal electric vehicles designed for neighborhood driving, communities and everyday mobility.</p>
-            <span className="sl-rule" />
+            <span className="bx-rule" />
             <div className="sl-hero-features">
               {HERO_FEATURES.map((feature) => {
                 const Icon = feature.icon;
@@ -166,10 +166,10 @@ export default function StreetLegal() {
               })}
             </div>
             <div className="sl-hero-actions">
-              <Link className="sl-btn sl-btn-gold" href="/street-legal#collection">
+              <Link className="bx-btn bx-btn-gold" href="/street-legal#collection">
                 Shop street-legal
               </Link>
-              <Link className="sl-btn sl-btn-outline" href="/street-legal#collection">
+              <Link className="bx-btn bx-btn-outline" href="/street-legal#collection">
                 View vehicles
               </Link>
             </div>
@@ -182,9 +182,9 @@ export default function StreetLegal() {
         <div className="bh-container sl-legal-grid">
           <div>
             <div className="sl-legal-intro">
-              <p className="sl-eyebrow">What makes it</p>
-              <h2 className="sl-serif">Street-legal?</h2>
-              <span className="sl-rule" />
+              <p className="bx-eyebrow">What makes it</p>
+              <h2 className="bx-serif">Street-legal?</h2>
+              <span className="bx-rule" />
               <p>
                 Our street-legal golf carts come equipped with the features you need to drive confidently in your
                 neighborhood and beyond.
@@ -254,7 +254,7 @@ export default function StreetLegal() {
         <div className="bh-container">
           <div className="sl-collection-head">
             <div>
-              <h2 className="sl-serif">Explore our street-legal collection</h2>
+              <h2 className="bx-serif">Explore our street-legal collection</h2>
               <p>Premium Electric. Street-Ready.</p>
             </div>
             <Link className="sl-view-all" href="/street-legal#collection">
@@ -287,7 +287,7 @@ export default function StreetLegal() {
                   </div>
                   <p className="sl-card-price">Starting at</p>
                   <p className="sl-card-amount">{model.price}</p>
-                  <Link className="sl-btn sl-btn-quiet" href="/contact">
+                  <Link className="bx-btn bx-btn-quiet" href="/contact">
                     View details
                   </Link>
                 </div>
@@ -301,7 +301,7 @@ export default function StreetLegal() {
       <section className="sl-section sl-dark">
         <div className="bh-container">
           <div className="sl-places-head">
-            <h2 className="sl-serif">Made for the places you love</h2>
+            <h2 className="bx-serif">Made for the places you love</h2>
             <p>From neighborhood streets to coastal drives and everything in between.</p>
           </div>
           <div className="sl-places">
@@ -327,17 +327,17 @@ export default function StreetLegal() {
         </div>
         <div className="bh-container sl-cta-inner">
           <div className="sl-cta-copy">
-            <h2 className="sl-serif">
+            <h2 className="bx-serif">
               Street-legal freedom.
               <em>Every day.</em>
             </h2>
             <p>Premium electric vehicles that go where you need to go.</p>
-            <span className="sl-rule" />
+            <span className="bx-rule" />
             <div className="sl-cta-actions">
-              <Link className="sl-btn sl-btn-gold" href="/street-legal#collection">
+              <Link className="bx-btn bx-btn-gold" href="/street-legal#collection">
                 Shop street-legal
               </Link>
-              <Link className="sl-btn sl-btn-outline" href="/contact">
+              <Link className="bx-btn bx-btn-outline" href="/contact">
                 Get financing
               </Link>
             </div>
