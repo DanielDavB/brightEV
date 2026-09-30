@@ -1,39 +1,14 @@
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, ChevronDown } from "lucide-react";
 import { useSearch } from "wouter";
-import { COALA_MODELS, CONTACT, QUOTE_RELAY, type QuoteRelay } from "@/data/site";
+import { COALA_MODELS, CONTACT, QUOTE_WEBHOOK } from "@/data/site";
 import "@/styles/bright-quote.css";
 
 const NOT_SURE = "Not sure yet";
 
-type Status = "idle" | "sending" | "sent" | "error" | "activation";
-
-interface QuoteRequest {
-  name: string;
-  phone: string;
-  company: string;
-  model: string;
-}
+type Status = "idle" | "sending" | "sent" | "error";
 
 const field = (data: FormData, key: string) => String(data.get(key) ?? "").trim();
-
-function mailtoHref({ name, phone, company, model }: QuoteRequest) {
-  const body = [`Name: ${name}`, `Phone: ${phone}`, `Company: ${company || "—"}`, `Model: ${model}`].join("\n");
-  return `${CONTACT.emailHref}?subject=${encodeURIComponent(`Quote request: ${model}`)}&body=${encodeURIComponent(body)}`;
-}
-
-// Endpoint and JSON body for the configured relay; both answer { success, message }.
-function relayRequest(relay: NonNullable<QuoteRelay>, { name, phone, company, model }: QuoteRequest) {
-  const subject = `Quote request: ${model} — ${name}`;
-  const fields = { Name: name, Phone: phone, Company: company || "—", Model: model };
-  if (relay.kind === "web3forms") {
-    return {
-      url: "https://api.web3forms.com/submit",
-      body: { access_key: relay.key, subject, from_name: "Bright EV website", ...fields },
-    };
-  }
-  return { url: relay.endpoint, body: { ...fields, _subject: subject, _template: "table", _captcha: "false" } };
-}
 
 // Model to preselect from /contact?model=<slug>, so "Request pricing" buttons land on the right cart.
 function initialModel(search: string) {
@@ -52,37 +27,26 @@ export default function QuoteForm() {
     const data = new FormData(form);
     if (field(data, "_honey")) return;
 
-    const request: QuoteRequest = {
-      name: field(data, "name"),
-      phone: field(data, "phone"),
-      company: field(data, "company"),
-      model: field(data, "model"),
-    };
-
-    if (!QUOTE_RELAY) {
-      window.location.href = mailtoHref(request);
-      return;
-    }
-
+    const name = field(data, "name");
+    const model = field(data, "model");
     setStatus("sending");
     try {
-      const { url, body } = relayRequest(QUOTE_RELAY, request);
-      const response = await fetch(url, {
+      // Make's webhook answers 200 "Accepted" once the scenario has queued the request.
+      const response = await fetch(QUOTE_WEBHOOK.url, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json", "x-make-apikey": QUOTE_WEBHOOK.apiKey },
+        body: JSON.stringify({
+          name,
+          phone: field(data, "phone"),
+          company: field(data, "company"),
+          model,
+          subject: `Quote request: ${model} — ${name}`,
+          page: window.location.href,
+          submitted_at: new Date().toISOString(),
+        }),
       });
-      const result = (await response.json().catch(() => ({}))) as { success?: string | boolean; message?: string };
-      // Until the owner clicks the link in FormSubmit's one-time activation email, every
-      // submission is answered with an "activate this form" message instead of being delivered.
-      if (QUOTE_RELAY.kind === "formsubmit" && /activat/i.test(result.message ?? "")) {
-        setStatus("activation");
-        return;
-      }
-      if (!response.ok || String(result.success) === "false") {
-        throw new Error(`Quote request failed (${response.status}): ${result.message ?? "no message"}`);
-      }
-      setSentTo(request.name.split(" ")[0]);
+      if (!response.ok) throw new Error(`Quote request failed (${response.status}): ${await response.text().catch(() => "")}`);
+      setSentTo(name.split(" ")[0]);
       setStatus("sent");
       form.reset();
     } catch (error) {
@@ -151,13 +115,7 @@ export default function QuoteForm() {
       <button className="bx-btn bx-btn-gold qf-submit" type="submit" disabled={status === "sending"}>
         {status === "sending" ? "Sending…" : "Request my quote"}
       </button>
-      {status === "activation" ? (
-        <p className="qf-error" role="alert">
-          This form is waiting for activation. The owner must click the &quot;Activate Form&quot; link FormSubmit just
-          emailed to the inbox that receives quotes (check spam too). Meanwhile, call{" "}
-          <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>.
-        </p>
-      ) : status === "error" ? (
+      {status === "error" ? (
         <p className="qf-error" role="alert">
           We could not send your request. Please call <a href={CONTACT.phoneHref}>{CONTACT.phone}</a> or{" "}
           <a href={CONTACT.emailHref}>email us</a>.
