@@ -35,14 +35,14 @@ export const SERVICE_NETWORK_PHONE_HREF = "tel:+18882600707";
 
 // Quote requests are emailed through a form relay chosen at build time from repository
 // variables in the Pages workflow:
-//  - WEB3FORMS_KEY (VITE_WEB3FORMS_KEY): the access key web3forms.com emails to the inbox owner.
+//  - WEB3FORMS_KEY (VITE_WEB3FORMS_KEY): overrides the owner's Web3Forms access key below.
 //    Preferred: delivery needs no activation step and the inbox never appears in the bundle.
-//  - QUOTE_EMAIL (VITE_QUOTE_EMAIL): an address or alias for FormSubmit (formsubmit.co), which
-//    holds submissions until the owner clicks its one-time activation email.
-// With neither set, the form opens a pre-filled email to CONTACT.email instead.
+//    The key is public by design (Web3Forms puts it in the page's HTML).
+//  - QUOTE_EMAIL (VITE_QUOTE_EMAIL): an address or alias for FormSubmit (formsubmit.co), used
+//    only if the Web3Forms key is emptied; it holds submissions until its activation email is clicked.
 export type QuoteRelay = { kind: "web3forms"; key: string } | { kind: "formsubmit"; endpoint: string } | null;
 
-const WEB3FORMS_KEY = (import.meta.env.VITE_WEB3FORMS_KEY ?? "").trim();
+const WEB3FORMS_KEY = (import.meta.env.VITE_WEB3FORMS_KEY || "ad597943-a07e-4462-a4fa-b99e6c36eefc").trim();
 const QUOTE_EMAIL = (import.meta.env.VITE_QUOTE_EMAIL ?? "").trim();
 export const QUOTE_RELAY: QuoteRelay = WEB3FORMS_KEY
   ? { kind: "web3forms", key: WEB3FORMS_KEY }
