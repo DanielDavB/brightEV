@@ -33,13 +33,22 @@ export const SERVICE_LINK_URL = "https://brightev.com/golf-cart-parts-and-servic
 export const SERVICE_NETWORK_PHONE = "888-260-0707";
 export const SERVICE_NETWORK_PHONE_HREF = "tel:+18882600707";
 
-// Quote requests are relayed by FormSubmit (formsubmit.co), which emails each submission to
-// the inbox named by VITE_QUOTE_EMAIL at build time (the QUOTE_EMAIL repository variable in the
-// Pages workflow). It takes a plain address or, better, the random alias FormSubmit issues after
-// the one-time activation email, so the inbox never appears in the published bundle. Without it
-// the form falls back to opening a pre-filled email to CONTACT.email.
+// Quote requests are emailed through a form relay chosen at build time from repository
+// variables in the Pages workflow:
+//  - WEB3FORMS_KEY (VITE_WEB3FORMS_KEY): the access key web3forms.com emails to the inbox owner.
+//    Preferred: delivery needs no activation step and the inbox never appears in the bundle.
+//  - QUOTE_EMAIL (VITE_QUOTE_EMAIL): an address or alias for FormSubmit (formsubmit.co), which
+//    holds submissions until the owner clicks its one-time activation email.
+// With neither set, the form opens a pre-filled email to CONTACT.email instead.
+export type QuoteRelay = { kind: "web3forms"; key: string } | { kind: "formsubmit"; endpoint: string } | null;
+
+const WEB3FORMS_KEY = (import.meta.env.VITE_WEB3FORMS_KEY ?? "").trim();
 const QUOTE_EMAIL = (import.meta.env.VITE_QUOTE_EMAIL ?? "").trim();
-export const QUOTE_FORM_ENDPOINT = QUOTE_EMAIL ? `https://formsubmit.co/ajax/${QUOTE_EMAIL}` : "";
+export const QUOTE_RELAY: QuoteRelay = WEB3FORMS_KEY
+  ? { kind: "web3forms", key: WEB3FORMS_KEY }
+  : QUOTE_EMAIL
+    ? { kind: "formsubmit", endpoint: `https://formsubmit.co/ajax/${QUOTE_EMAIL}` }
+    : null;
 
 export interface CartCategoryCopy {
   slug: string;

@@ -32,6 +32,7 @@ jobs:
       - run: pnpm exec vite build
         env:
           VITE_QUOTE_EMAIL: ${{ vars.QUOTE_EMAIL }}
+          VITE_WEB3FORMS_KEY: ${{ vars.WEB3FORMS_KEY }}
 
       - run: touch dist/public/.nojekyll
 

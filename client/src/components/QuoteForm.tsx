@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, ChevronDown } from "lucide-react";
 import { useSearch } from "wouter";
-import { COALA_MODELS, CONTACT, QUOTE_FORM_ENDPOINT } from "@/data/site";
+import { COALA_MODELS, CONTACT, QUOTE_RELAY, type QuoteRelay } from "@/data/site";
 import "@/styles/bright-quote.css";
 
 const NOT_SURE = "Not sure yet";
@@ -20,6 +20,19 @@ const field = (data: FormData, key: string) => String(data.get(key) ?? "").trim(
 function mailtoHref({ name, phone, company, model }: QuoteRequest) {
   const body = [`Name: ${name}`, `Phone: ${phone}`, `Company: ${company || "—"}`, `Model: ${model}`].join("\n");
   return `${CONTACT.emailHref}?subject=${encodeURIComponent(`Quote request: ${model}`)}&body=${encodeURIComponent(body)}`;
+}
+
+// Endpoint and JSON body for the configured relay; both answer { success, message }.
+function relayRequest(relay: NonNullable<QuoteRelay>, { name, phone, company, model }: QuoteRequest) {
+  const subject = `Quote request: ${model} — ${name}`;
+  const fields = { Name: name, Phone: phone, Company: company || "—", Model: model };
+  if (relay.kind === "web3forms") {
+    return {
+      url: "https://api.web3forms.com/submit",
+      body: { access_key: relay.key, subject, from_name: "Bright EV website", ...fields },
+    };
+  }
+  return { url: relay.endpoint, body: { ...fields, _subject: subject, _template: "table", _captcha: "false" } };
 }
 
 // Model to preselect from /contact?model=<slug>, so "Request pricing" buttons land on the right cart.
@@ -46,38 +59,34 @@ export default function QuoteForm() {
       model: field(data, "model"),
     };
 
-    if (!QUOTE_FORM_ENDPOINT) {
+    if (!QUOTE_RELAY) {
       window.location.href = mailtoHref(request);
       return;
     }
 
     setStatus("sending");
     try {
-      const response = await fetch(QUOTE_FORM_ENDPOINT, {
+      const { url, body } = relayRequest(QUOTE_RELAY, request);
+      const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          Name: request.name,
-          Phone: request.phone,
-          Company: request.company || "—",
-          Model: request.model,
-          _subject: `Quote request: ${request.model} — ${request.name}`,
-          _template: "table",
-          _captcha: "false",
-        }),
+        body: JSON.stringify(body),
       });
       const result = (await response.json().catch(() => ({}))) as { success?: string | boolean; message?: string };
       // Until the owner clicks the link in FormSubmit's one-time activation email, every
       // submission is answered with an "activate this form" message instead of being delivered.
-      if (/activat/i.test(result.message ?? "")) {
+      if (QUOTE_RELAY.kind === "formsubmit" && /activat/i.test(result.message ?? "")) {
         setStatus("activation");
         return;
       }
-      if (!response.ok || String(result.success) === "false") throw new Error(`Quote request failed (${response.status})`);
+      if (!response.ok || String(result.success) === "false") {
+        throw new Error(`Quote request failed (${response.status}): ${result.message ?? "no message"}`);
+      }
       setSentTo(request.name.split(" ")[0]);
       setStatus("sent");
       form.reset();
-    } catch {
+    } catch (error) {
+      console.error(error);
       setStatus("error");
     }
   }
