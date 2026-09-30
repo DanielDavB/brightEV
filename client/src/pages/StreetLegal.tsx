@@ -20,7 +20,7 @@ import {
 import { Link } from "wouter";
 import BrightFooter from "@/components/BrightFooter";
 import BrightHeader from "@/components/BrightHeader";
-import { COALA_MODELS, CONTACT } from "@/data/site";
+import { COALA_MODELS } from "@/data/site";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { withBase } from "@/lib/url";
 import "@/styles/bright.css";
@@ -73,8 +73,7 @@ const STRIP = [
 const MODELS = COALA_MODELS.filter((model) => model.layout !== "Utility");
 const FEATURED = "coala-4";
 
-const pricingHref = (name: string) =>
-  `${CONTACT.emailHref}?subject=${encodeURIComponent(`Pricing request: ${name}`)}`;
+const pricingHref = (slug: string) => `/contact?model=${slug}#quote`;
 
 const PLACES = [
   {
@@ -266,9 +265,9 @@ export default function StreetLegal() {
                   <p className="sl-card-price">Range per charge</p>
                   <p className="sl-card-amount">{model.range}</p>
                   <p className="sl-card-note">{model.battery} · pricing on request</p>
-                  <a className="bx-btn bx-btn-quiet" href={pricingHref(model.name)}>
+                  <Link className="bx-btn bx-btn-quiet" href={pricingHref(model.slug)}>
                     Request pricing
-                  </a>
+                  </Link>
                 </div>
               </article>
             ))}

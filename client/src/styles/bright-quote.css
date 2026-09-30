@@ -1,0 +1,60 @@
+/* ============================================================================
+ * Quote request form (qf-), used on About & Contact. Mirrors the Commercial
+ * fleet form: uppercase labels, white fields and a gold submit on a dark card.
+ * ========================================================================== */
+
+.qf-card {
+  position: relative;
+  padding: 34px 34px 30px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 3px solid var(--gold);
+  background: #151515;
+}
+.qf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 18px; }
+.qf-field label {
+  display: block;
+  margin-bottom: 9px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.qf-field label span { color: #a5a099; font-weight: 500; letter-spacing: 0.02em; text-transform: none; }
+.qf-field input,
+.qf-field select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: #fff;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 15px;
+}
+.qf-field select { appearance: none; padding-right: 40px; background-image: none; }
+.qf-field ::placeholder { color: #8d8880; }
+.qf-field input:user-invalid,
+.qf-field select:user-invalid { border-color: #e0664f; box-shadow: 0 0 0 2px rgba(224, 102, 79, 0.25); }
+.qf-select { position: relative; }
+.qf-select > svg { position: absolute; right: 14px; bottom: 16px; color: #6b665f; pointer-events: none; }
+
+.qf-honey { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); opacity: 0; }
+
+.qf-submit { width: 100%; margin-top: 26px; }
+.qf-submit:disabled { cursor: progress; opacity: 0.7; transform: none; }
+.qf-note,
+.qf-error { margin: 14px 0 0; font-size: 12.5px; line-height: 1.55; text-align: center; }
+.qf-note { color: #a5a099; }
+.qf-error { color: #f3a594; }
+.qf-error a { color: #fff; }
+
+.qf-done { text-align: center; }
+.qf-done svg { display: block; margin: 0 auto; color: var(--gold); }
+.qf-done h3 { margin: 14px 0 0; color: #fff; font-size: 20px; font-weight: 700; }
+.qf-done p { max-width: 380px; margin: 10px auto 24px; color: #bdb8b1; font-size: 14.5px; line-height: 1.6; }
+
+@media (max-width: 560px) {
+  .qf-card { padding: 26px 20px 22px; }
+  .qf-grid { grid-template-columns: 1fr; gap: 18px; }
+}

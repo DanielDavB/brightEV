@@ -30,6 +30,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm exec vite build
+        env:
+          VITE_QUOTE_EMAIL: ${{ vars.QUOTE_EMAIL }}
 
       - run: touch dist/public/.nojekyll
 

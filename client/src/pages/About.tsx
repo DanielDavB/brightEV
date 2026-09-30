@@ -1,7 +1,8 @@
-import { ArrowRight, BatteryCharging, CarFront, KeyRound, Mail, MapPin, MessageSquare, Phone, Truck, Wrench } from "lucide-react";
+import { ArrowRight, BatteryCharging, CarFront, Check, KeyRound, Mail, MapPin, MessageSquare, Phone, Truck, Wrench } from "lucide-react";
 import { Link } from "wouter";
 import BrightFooter from "@/components/BrightFooter";
 import BrightHeader from "@/components/BrightHeader";
+import QuoteForm from "@/components/QuoteForm";
 import { CONTACT, NETWORK, SERVICE_NETWORK_PHONE, SERVICE_NETWORK_PHONE_HREF } from "@/data/site";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { withBase } from "@/lib/url";
@@ -39,6 +40,12 @@ const WHAT_WE_DO = [
     href: "/services",
     action: "Book service",
   },
+];
+
+const QUOTE_POINTS = [
+  "Pricing and current availability for the Coala you choose",
+  `Financing options, including ${NETWORK.financeFacts.promo} on approved credit`,
+  "Delivery anywhere in the continental United States",
 ];
 
 const VALUES = [
@@ -170,6 +177,27 @@ export default function About() {
               </article>
             );
           })}
+        </div>
+      </section>
+
+      <section className="pg-section pg-darker" id="quote">
+        <div className="bh-container pg-split pg-quote">
+          <div>
+            <p className="bx-eyebrow">Request a quote</p>
+            <h2 className="bx-serif">Get pricing on your Coala.</h2>
+            <p className="pg-lead">
+              Leave your name, phone and the model you like. Our team will call you back with a quote — no pressure.
+            </p>
+            <ul className="pg-checklist">
+              {QUOTE_POINTS.map((point) => (
+                <li key={point}>
+                  <Check size={17} aria-hidden="true" />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <QuoteForm />
         </div>
       </section>
 

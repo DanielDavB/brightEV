@@ -45,7 +45,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
     title: "Company",
     links: [
       { label: "About Bright EV", href: "/about" },
-      { label: "Contact", href: "/contact" },
+      { label: "Contact", href: "/contact#quote" },
       { label: "Locations", href: NETWORK.locationsHref },
       { label: "Customer Reviews", href: NETWORK.reviewsHref },
     ],

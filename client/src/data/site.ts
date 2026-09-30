@@ -33,6 +33,14 @@ export const SERVICE_LINK_URL = "https://brightev.com/golf-cart-parts-and-servic
 export const SERVICE_NETWORK_PHONE = "888-260-0707";
 export const SERVICE_NETWORK_PHONE_HREF = "tel:+18882600707";
 
+// Quote requests are relayed by FormSubmit (formsubmit.co), which emails each submission to
+// the inbox named by VITE_QUOTE_EMAIL at build time (the QUOTE_EMAIL repository variable in the
+// Pages workflow). It takes a plain address or, better, the random alias FormSubmit issues after
+// the one-time activation email, so the inbox never appears in the published bundle. Without it
+// the form falls back to opening a pre-filled email to CONTACT.email.
+const QUOTE_EMAIL = (import.meta.env.VITE_QUOTE_EMAIL ?? "").trim();
+export const QUOTE_FORM_ENDPOINT = QUOTE_EMAIL ? `https://formsubmit.co/ajax/${QUOTE_EMAIL}` : "";
+
 export interface CartCategoryCopy {
   slug: string;
   /** cart-photos.json keys whose photos should be shown for this category */

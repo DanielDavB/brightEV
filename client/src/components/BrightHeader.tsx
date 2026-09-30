@@ -25,7 +25,7 @@ const NAV: NavItem[] = [
     children: [
       { label: "Our story", href: "/about" },
       { label: "Visit the shop", href: "/about#visit" },
-      { label: "Contact", href: "/contact" },
+      { label: "Contact", href: "/contact#quote" },
     ],
   },
 ];
