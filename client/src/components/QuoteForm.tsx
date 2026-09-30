@@ -6,7 +6,7 @@ import "@/styles/bright-quote.css";
 
 const NOT_SURE = "Not sure yet";
 
-type Status = "idle" | "sending" | "sent" | "error";
+type Status = "idle" | "sending" | "sent" | "error" | "activation";
 
 interface QuoteRequest {
   name: string;
@@ -66,7 +66,13 @@ export default function QuoteForm() {
           _captcha: "false",
         }),
       });
-      const result = (await response.json().catch(() => ({}))) as { success?: string | boolean };
+      const result = (await response.json().catch(() => ({}))) as { success?: string | boolean; message?: string };
+      // Until the owner clicks the link in FormSubmit's one-time activation email, every
+      // submission is answered with an "activate this form" message instead of being delivered.
+      if (/activat/i.test(result.message ?? "")) {
+        setStatus("activation");
+        return;
+      }
       if (!response.ok || String(result.success) === "false") throw new Error(`Quote request failed (${response.status})`);
       setSentTo(request.name.split(" ")[0]);
       setStatus("sent");
@@ -136,7 +142,13 @@ export default function QuoteForm() {
       <button className="bx-btn bx-btn-gold qf-submit" type="submit" disabled={status === "sending"}>
         {status === "sending" ? "Sending…" : "Request my quote"}
       </button>
-      {status === "error" ? (
+      {status === "activation" ? (
+        <p className="qf-error" role="alert">
+          This form is waiting for activation. The owner must click the &quot;Activate Form&quot; link FormSubmit just
+          emailed to the inbox that receives quotes (check spam too). Meanwhile, call{" "}
+          <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>.
+        </p>
+      ) : status === "error" ? (
         <p className="qf-error" role="alert">
           We could not send your request. Please call <a href={CONTACT.phoneHref}>{CONTACT.phone}</a> or{" "}
           <a href={CONTACT.emailHref}>email us</a>.
